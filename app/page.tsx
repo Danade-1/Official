@@ -133,7 +133,8 @@ export default function LandingPage() {
         <motion.div 
           className="mt-20 w-full max-w-5xl mx-auto px-6 animate-float"
           initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, margin: "-50px" }}
           transition={{ duration: 1, delay: 0.2 }}
         >
           <div className="relative rounded-2xl md:rounded-3xl border border-[var(--border)] bg-[var(--bg-glass)] backdrop-blur-xl p-2 md:p-4 shadow-2xl overflow-hidden aspect-[16/9] flex items-center justify-center">
@@ -184,7 +185,7 @@ export default function LandingPage() {
               className="bg-[var(--bg-surface)] border border-[var(--border)] p-8 rounded-2xl relative overflow-hidden group hover:border-[var(--accent-sage)] transition-colors hover:shadow-[0_0_30px_rgba(110,231,183,0.05)]"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
+              viewport={{ once: false, margin: "-50px" }}
               whileHover={{ y: -5 }}
               transition={{ duration: 0.5 }}
             >
@@ -202,7 +203,7 @@ export default function LandingPage() {
               className="bg-[var(--bg-surface)] border border-[var(--border)] p-8 rounded-2xl relative overflow-hidden group hover:border-[var(--accent-lavender)] transition-colors hover:shadow-[0_0_30px_rgba(167,139,250,0.05)]"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
+              viewport={{ once: false, margin: "-50px" }}
               whileHover={{ y: -5 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
@@ -220,7 +221,7 @@ export default function LandingPage() {
               className="bg-[var(--bg-surface)] border border-[var(--border)] p-8 rounded-2xl relative overflow-hidden group hover:border-blue-400 transition-colors hover:shadow-[0_0_30px_rgba(96,165,250,0.05)]"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
+              viewport={{ once: false, margin: "-50px" }}
               whileHover={{ y: -5 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
