@@ -42,7 +42,8 @@ export default function LandingPage() {
             </a>
             <a 
               href="https://sermon-note-manager-ddaw-i8r8do9e3-danny-077a.vercel.app"
-              className="bg-white text-black px-5 py-2.5 rounded-full text-sm font-semibold hover:scale-105 transition-transform"
+              className="bg-white px-5 py-2.5 rounded-full text-sm font-semibold hover:scale-105 transition-transform"
+              style={{ color: '#000000' }}
             >
               Get Started
             </a>
@@ -103,7 +104,8 @@ export default function LandingPage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a 
               href="https://sermon-note-manager-ddaw-i8r8do9e3-danny-077a.vercel.app"
-              className="w-full sm:w-auto flex items-center justify-center gap-3 bg-[var(--text-primary)] text-black px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white transition-colors shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:shadow-[0_0_40px_rgba(255,255,255,0.25)]"
+              className="w-full sm:w-auto flex items-center justify-center gap-3 bg-[var(--text-primary)] px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white transition-colors shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:shadow-[0_0_40px_rgba(255,255,255,0.25)]"
+              style={{ color: '#000000' }}
             >
               <BookOpen size={20} />
               Open Web App
@@ -149,23 +151,23 @@ export default function LandingPage() {
         </motion.div>
 
         {/* Infinite Marquee Section */}
-        <div className="w-full mt-32 overflow-hidden bg-[var(--bg-surface)] border-y border-[var(--border)] py-6 relative">
+        <div className="w-full mt-16 overflow-hidden bg-[var(--bg-surface)] border-y border-[var(--border)] py-4 relative">
           <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[var(--bg-deep)] to-transparent z-10 pointer-events-none"></div>
           <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[var(--bg-deep)] to-transparent z-10 pointer-events-none"></div>
           
           <div className="flex w-[200%] animate-marquee">
             {/* Double the content for seamless looping */}
-            <div className="flex w-1/2 justify-evenly items-center px-8 gap-16">
-              <span className="text-[var(--text-secondary)] font-medium text-xl flex items-center gap-3"><Shield size={24} className="text-[var(--accent-sage)]"/> End-to-End Encryption</span>
-              <span className="text-[var(--text-secondary)] font-medium text-xl flex items-center gap-3"><Zap size={24} className="text-[var(--accent-gold)]"/> Blazing Fast Local-First</span>
-              <span className="text-[var(--text-secondary)] font-medium text-xl flex items-center gap-3"><Sparkles size={24} className="text-[var(--accent-lavender)]"/> AI Auto-Tagging</span>
-              <span className="text-[var(--text-secondary)] font-medium text-xl flex items-center gap-3"><Cloud size={24} className="text-blue-400"/> Cross-Platform Sync</span>
+            <div className="flex w-1/2 justify-evenly items-center px-4 gap-8">
+              <span className="text-[var(--text-secondary)] font-medium text-base flex items-center gap-2"><Shield size={18} className="text-[var(--accent-sage)]"/> End-to-End Encryption</span>
+              <span className="text-[var(--text-secondary)] font-medium text-base flex items-center gap-2"><Zap size={18} className="text-[var(--accent-gold)]"/> Blazing Fast Local-First</span>
+              <span className="text-[var(--text-secondary)] font-medium text-base flex items-center gap-2"><Sparkles size={18} className="text-[var(--accent-lavender)]"/> AI Auto-Tagging</span>
+              <span className="text-[var(--text-secondary)] font-medium text-base flex items-center gap-2"><Cloud size={18} className="text-blue-400"/> Cross-Platform Sync</span>
             </div>
-            <div className="flex w-1/2 justify-evenly items-center px-8 gap-16">
-              <span className="text-[var(--text-secondary)] font-medium text-xl flex items-center gap-3"><Shield size={24} className="text-[var(--accent-sage)]"/> End-to-End Encryption</span>
-              <span className="text-[var(--text-secondary)] font-medium text-xl flex items-center gap-3"><Zap size={24} className="text-[var(--accent-gold)]"/> Blazing Fast Local-First</span>
-              <span className="text-[var(--text-secondary)] font-medium text-xl flex items-center gap-3"><Sparkles size={24} className="text-[var(--accent-lavender)]"/> AI Auto-Tagging</span>
-              <span className="text-[var(--text-secondary)] font-medium text-xl flex items-center gap-3"><Cloud size={24} className="text-blue-400"/> Cross-Platform Sync</span>
+            <div className="flex w-1/2 justify-evenly items-center px-4 gap-8">
+              <span className="text-[var(--text-secondary)] font-medium text-base flex items-center gap-2"><Shield size={18} className="text-[var(--accent-sage)]"/> End-to-End Encryption</span>
+              <span className="text-[var(--text-secondary)] font-medium text-base flex items-center gap-2"><Zap size={18} className="text-[var(--accent-gold)]"/> Blazing Fast Local-First</span>
+              <span className="text-[var(--text-secondary)] font-medium text-base flex items-center gap-2"><Sparkles size={18} className="text-[var(--accent-lavender)]"/> AI Auto-Tagging</span>
+              <span className="text-[var(--text-secondary)] font-medium text-base flex items-center gap-2"><Cloud size={18} className="text-blue-400"/> Cross-Platform Sync</span>
             </div>
           </div>
         </div>
