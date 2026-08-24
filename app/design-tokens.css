@@ -1,0 +1,135 @@
+/* ============================================================
+   VESSEL — Design Tokens
+   "Midnight Garden" & Dynamic Accent Themes
+   ============================================================ */
+
+:root,
+[data-theme="sage"] {
+  color-scheme: dark;
+
+  /* ---- Background Layers ---- */
+  --bg-deep: #0f1114;
+  --bg-surface: #181b20;
+  --bg-elevated: #1f2228;
+  --bg-glass: rgba(30, 34, 42, 0.65);
+  --bg-glass-strong: rgba(30, 34, 42, 0.82);
+
+  /* ---- Text ---- */
+  --text-primary: #e8eaed;
+  --text-secondary: #8b919a;
+  --text-muted: #565c66;
+  --text-inverse: #0f1114;
+
+  /* ---- Borders & Lines ---- */
+  --border: rgba(255, 255, 255, 0.06);
+  --border-hover: rgba(255, 255, 255, 0.12);
+  --border-focus: rgba(110, 231, 183, 0.4);
+
+  /* ---- Accent Colors (Sage / Mint) ---- */
+  --accent-sage: #6ee7b7;
+  --accent-sage-dim: rgba(110, 231, 183, 0.15);
+  --accent-sage-glow: rgba(110, 231, 183, 0.25);
+  --accent-coral: #fb923c;
+  --accent-coral-dim: rgba(251, 146, 60, 0.15);
+  --accent-lavender: #a78bfa;
+  --accent-lavender-dim: rgba(167, 139, 250, 0.15);
+  --accent-rose: #fb7185;
+  --accent-rose-dim: rgba(251, 113, 133, 0.15);
+  --accent-gold: #fbbf24;
+  --accent-gold-dim: rgba(251, 191, 36, 0.15);
+
+  /* ---- Status Colors ---- */
+  --status-complete: #34d399;
+  --status-complete-bg: rgba(52, 211, 153, 0.12);
+  --status-draft: #fbbf24;
+  --status-draft-bg: rgba(251, 191, 36, 0.12);
+
+  /* ---- Typography ---- */
+  --font-sans: "Inter Variable", "Inter", system-ui, -apple-system, sans-serif;
+  --font-serif: "Playfair Display Variable", "Playfair Display", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --text-xs: 0.625rem;    /* 10px */
+  --text-sm: 0.6875rem;   /* 11px */
+  --text-base: clamp(0.8125rem, 1.5vw, 0.9375rem); /* 13-15px */
+  --text-md: clamp(0.875rem, 1.8vw, 1rem);           /* 14-16px */
+  --text-lg: clamp(1.125rem, 2.5vw, 1.5rem);         /* 18-24px */
+  --text-xl: clamp(1.5rem, 3vw, 2rem);               /* 24-32px */
+  --text-2xl: clamp(1.75rem, 4vw, 2.75rem);          /* 28-44px */
+
+  /* ---- Spacing ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* ---- Radii ---- */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* ---- Shadows ---- */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 14px 40px rgba(0, 0, 0, 0.4);
+  --shadow-glow-sage: 0 0 20px rgba(110, 231, 183, 0.15);
+  --shadow-glow-coral: 0 0 20px rgba(251, 146, 60, 0.15);
+
+  /* ---- Glass ---- */
+  --glass-blur: blur(20px) saturate(1.4);
+  --glass-border: 1px solid var(--border);
+  --glass-shine: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  /* ---- Transitions ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+
+  /* ---- Layout ---- */
+  --sidebar-width: 244px;
+  --sidebar-collapsed: 56px;
+  --topbar-height: 64px;
+  --content-max-width: 1400px;
+}
+
+/* ---- Theme: Celestial Indigo ---- */
+[data-theme="indigo"] {
+  --bg-deep: #0a0e17;
+  --bg-surface: #121826;
+  --bg-elevated: #1a2236;
+  --accent-sage: #60a5fa;
+  --accent-sage-dim: rgba(96, 165, 250, 0.15);
+  --accent-sage-glow: rgba(96, 165, 250, 0.25);
+  --border-focus: rgba(96, 165, 250, 0.4);
+}
+
+/* ---- Theme: Warm Amber ---- */
+[data-theme="amber"] {
+  --bg-deep: #120e0b;
+  --bg-surface: #1c1712;
+  --bg-elevated: #26201a;
+  --accent-sage: #fbbf24;
+  --accent-sage-dim: rgba(251, 191, 36, 0.15);
+  --accent-sage-glow: rgba(251, 191, 36, 0.25);
+  --border-focus: rgba(251, 191, 36, 0.4);
+}
+
+/* ---- Theme: Amethyst Purple ---- */
+[data-theme="amethyst"] {
+  --bg-deep: #100c18;
+  --bg-surface: #181324;
+  --bg-elevated: #221c32;
+  --accent-sage: #c084fc;
+  --accent-sage-dim: rgba(192, 132, 252, 0.15);
+  --accent-sage-glow: rgba(192, 132, 252, 0.25);
+  --border-focus: rgba(192, 132, 252, 0.4);
+}
