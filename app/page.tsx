@@ -15,15 +15,15 @@ export default function LandingPage() {
           <span className="font-serif text-2xl font-bold tracking-tight text-white">Vessel</span>
         </div>
         <div className="flex items-center gap-4">
-          <Link href="https://sermon-note-manager-ddaw-i8r8do9e3-danny-077a.vercel.app/" className="text-[var(--text-secondary)] hover:text-white transition-colors text-sm font-medium hidden sm:block">
+          <a href="https://sermon-note-manager-ddaw-i8r8do9e3-danny-077a.vercel.app" className="text-[var(--text-secondary)] hover:text-white transition-colors text-sm font-medium hidden sm:block">
             Open Web App
-          </Link>
-          <Link 
-            href="https://sermon-note-manager-ddaw-i8r8do9e3-danny-077a.vercel.app/"
+          </a>
+          <a 
+            href="https://sermon-note-manager-ddaw-i8r8do9e3-danny-077a.vercel.app"
             className="bg-white text-black px-5 py-2.5 rounded-full text-sm font-semibold hover:scale-105 transition-transform"
           >
             Get Started
-          </Link>
+          </a>
         </div>
       </nav>
 
@@ -59,13 +59,13 @@ export default function LandingPage() {
 
           {/* Download Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link 
-              href="https://sermon-note-manager-ddaw-i8r8do9e3-danny-077a.vercel.app/"
+            <a 
+              href="https://sermon-note-manager-ddaw-i8r8do9e3-danny-077a.vercel.app"
               className="w-full sm:w-auto flex items-center justify-center gap-3 bg-[var(--text-primary)] text-[var(--bg-deep)] px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white transition-colors shadow-[0_0_20px_rgba(255,255,255,0.1)]"
             >
               <BookOpen size={20} />
               Open Web App
-            </Link>
+            </a>
             
             <a 
               href="#download"
