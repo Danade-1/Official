@@ -15,12 +15,33 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Vessel | A quiet space for your sermon notes",
-  description: "Vessel is a beautiful, local-first workspace designed specifically for gathering, organizing, and reflecting on your spiritual insights.",
+  title: "Vessel — A Quiet Space for Your Sermon Notes & Spiritual Reflection",
+  description: "Vessel is a beautiful, local-first digital sanctuary designed for gathering, organizing, and meditating on sermon notes, Bible studies, and prayer reflections. Available on Web, Windows & Android.",
+  keywords: [
+    "sermon notes app",
+    "bible study app",
+    "christian note taking",
+    "devotional journal",
+    "local-first notes",
+    "scripture lookup",
+    "vessel notes"
+  ],
+  authors: [{ name: "Vessel Team" }],
+  openGraph: {
+    title: "Vessel — A Quiet Space for Your Sermon Notes",
+    description: "Capture, organize, and reflect on God's Word without distraction. Local-first speed, one-click scripture citation, and cross-platform sync.",
+    type: "website",
+    url: "https://github.com/Danade-1/Official",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Vessel — A Quiet Space for Your Sermon Notes",
+    description: "A distraction-free, local-first sanctuary for sermon notes, Bible studies, and spiritual devotion.",
+  },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0f1114",
+  themeColor: "#0b0d10",
   colorScheme: "dark",
 };
 
@@ -30,8 +51,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className={`${inter.variable} ${playfair.variable}`} data-theme="sage">
+      <body className="min-h-screen flex flex-col bg-[#0b0d10] text-[#f1f3f6]">
+        {children}
+      </body>
     </html>
   );
 }
