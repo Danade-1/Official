@@ -1,8 +1,7 @@
 "use client";
 
 import { Feather, BookOpen, ExternalLink, Heart } from "lucide-react";
-
-const APP_URL = "https://sermon-note-manager-ddaw-i8r8do9e3-danny-077a.vercel.app";
+import { APP_URL } from "../constants";
 
 export function Footer() {
   return (
@@ -36,7 +35,8 @@ export function Footer() {
                 style={{ color: "#000000" }}
               >
                 <BookOpen size={18} />
-                <span>Launch Vessel Now — Free</span>
+                <span>Launch Vessel Real Web App — Free</span>
+                <ExternalLink size={16} />
               </a>
             </div>
           </div>
@@ -59,7 +59,15 @@ export function Footer() {
         {/* Navigation Quick Links */}
         <div className="flex items-center gap-6 font-medium text-white/60">
           <a href="#features" className="hover:text-white transition-colors">Features</a>
-          <a href="#experience" className="hover:text-white transition-colors">Desktop & Mobile</a>
+          <a
+            href={APP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-white transition-colors text-[var(--accent-primary)] font-semibold flex items-center gap-1"
+          >
+            <span>Live Web App</span>
+            <ExternalLink size={11} />
+          </a>
           <a href="#scripture" className="hover:text-white transition-colors">Scripture Tool</a>
           <a href="#platforms" className="hover:text-white transition-colors">Platforms</a>
           <a href="#faq" className="hover:text-white transition-colors">FAQ</a>

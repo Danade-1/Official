@@ -2,9 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, BookOpen, Monitor, Smartphone, Palette, ArrowRight, ShieldCheck } from "lucide-react";
-
-const APP_URL = "https://sermon-note-manager-ddaw-i8r8do9e3-danny-077a.vercel.app";
+import { Sparkles, BookOpen, Monitor, Smartphone, Palette, ArrowRight, ShieldCheck, ExternalLink } from "lucide-react";
+import { APP_URL } from "../constants";
 
 const rotatingWords = [
   "sermon notes",
@@ -119,34 +118,47 @@ export function Hero({ currentTheme, onThemeChange, onOpenDownload }: HeroProps)
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3.5 max-w-xl mx-auto mb-14"
+          className="flex flex-col items-center max-w-xl mx-auto mb-14"
         >
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full">
+            <a
+              href={APP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-shimmer w-full sm:w-auto flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl font-semibold text-base text-black bg-[var(--accent-primary)] hover:brightness-110 transition-all shadow-[0_0_35px_var(--accent-primary-glow)] hover:scale-[1.02] active:scale-[0.98]"
+              style={{ color: "#000000" }}
+            >
+              <BookOpen size={19} />
+              <span>Launch Live Web App</span>
+              <ExternalLink size={15} />
+            </a>
+
+            <button
+              onClick={() => onOpenDownload?.("windows")}
+              className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl font-medium text-sm text-white bg-white/[0.05] hover:bg-white/[0.09] border border-white/10 hover:border-white/20 transition-all"
+            >
+              <Monitor size={17} className="text-white/70" />
+              <span>Windows (.exe)</span>
+            </button>
+
+            <button
+              onClick={() => onOpenDownload?.("android")}
+              className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl font-medium text-sm text-white bg-white/[0.05] hover:bg-white/[0.09] border border-white/10 hover:border-white/20 transition-all"
+            >
+              <Smartphone size={17} className="text-white/70" />
+              <span>Android (.apk)</span>
+            </button>
+          </div>
+
           <a
             href={APP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-shimmer w-full sm:w-auto flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl font-semibold text-base text-black bg-[var(--accent-primary)] hover:brightness-110 transition-all shadow-[0_0_35px_var(--accent-primary-glow)] hover:scale-[1.02] active:scale-[0.98]"
-            style={{ color: "#000000" }}
+            className="inline-flex items-center gap-1.5 mt-3.5 text-xs text-[var(--accent-primary)] hover:underline opacity-90 hover:opacity-100 transition-opacity"
           >
-            <BookOpen size={19} />
-            <span>Launch Web App</span>
+            <Sparkles size={12} />
+            <span>Opens your real, live sermon workspace directly in your browser — zero installation</span>
           </a>
-
-          <button
-            onClick={() => onOpenDownload?.("windows")}
-            className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl font-medium text-sm text-white bg-white/[0.05] hover:bg-white/[0.09] border border-white/10 hover:border-white/20 transition-all"
-          >
-            <Monitor size={17} className="text-white/70" />
-            <span>Windows</span>
-          </button>
-
-          <button
-            onClick={() => onOpenDownload?.("android")}
-            className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl font-medium text-sm text-white bg-white/[0.05] hover:bg-white/[0.09] border border-white/10 hover:border-white/20 transition-all"
-          >
-            <Smartphone size={17} className="text-white/70" />
-            <span>Android</span>
-          </button>
         </motion.div>
 
         {/* Live Interactive Accent Theme Switcher Bar */}

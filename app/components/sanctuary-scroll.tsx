@@ -4,8 +4,7 @@ import { useRef, useState } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { BookOpen, Sparkles, ExternalLink, Feather, ChevronRight, CheckCircle2, Bookmark } from "lucide-react";
 import Image from "next/image";
-
-const APP_URL = "https://sermon-note-manager-ddaw-i8r8do9e3-danny-077a.vercel.app";
+import { APP_URL } from "../constants";
 
 interface ScripturePin {
   id: string;

@@ -2,8 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Globe, Monitor, Smartphone, Check, ArrowRight, Download, ExternalLink } from "lucide-react";
-
-const APP_URL = "https://sermon-note-manager-ddaw-i8r8do9e3-danny-077a.vercel.app";
+import { APP_URL } from "../constants";
 
 interface PlatformsSectionProps {
   onOpenDownload?: (platform?: "windows" | "android") => void;
@@ -28,10 +27,10 @@ export function PlatformsSection({ onOpenDownload }: PlatformsSectionProps) {
           href={APP_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-shimmer w-full py-3 rounded-xl font-semibold text-xs text-black bg-[var(--accent-primary)] hover:brightness-110 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_var(--accent-primary-glow)]"
+          className="btn-shimmer w-full py-3.5 rounded-xl font-bold text-xs text-black bg-[var(--accent-primary)] hover:brightness-110 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_var(--accent-primary-glow)] hover:scale-[1.02] active:scale-[0.98]"
           style={{ color: "#000000" }}
         >
-          <span>Launch Web App</span>
+          <span>Launch Real Web App (Direct)</span>
           <ExternalLink size={14} />
         </a>
       )

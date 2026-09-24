@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { BookOpen, Check, Copy, Sparkles, ArrowRight } from "lucide-react";
+import { BookOpen, Check, Copy, Sparkles, ArrowRight, ExternalLink } from "lucide-react";
+import { APP_URL } from "../constants";
 
 interface ScripturePreset {
   reference: string;
@@ -148,9 +149,18 @@ export function ScriptureDemo() {
             </AnimatePresence>
 
             {/* Note Context Simulation */}
-            <div className="mt-6 pt-4 text-xs text-[var(--text-secondary)] flex items-center justify-between border-t border-white/[0.04]">
+            <div className="mt-6 pt-4 text-xs text-[var(--text-secondary)] flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-t border-white/[0.04]">
               <span>Inserted into sermon: <em>Renewed in Christ (Pastor Miller)</em></span>
-              <span className="text-[var(--accent-primary)] font-medium">Ready for study</span>
+              <a
+                href={APP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-shimmer inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold text-black bg-[var(--accent-primary)] hover:brightness-110 shadow-[0_0_15px_var(--accent-primary-glow)] transition-all self-start sm:self-auto"
+                style={{ color: "#000000" }}
+              >
+                <span>Test Scripture Insertion in Live App</span>
+                <ExternalLink size={12} />
+              </a>
             </div>
           </div>
 

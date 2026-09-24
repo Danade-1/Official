@@ -2,8 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Monitor, Smartphone, Globe, ExternalLink, Download, CheckCircle2, ShieldCheck } from "lucide-react";
-
-const APP_URL = "https://sermon-note-manager-ddaw-i8r8do9e3-danny-077a.vercel.app";
+import { APP_URL } from "../constants";
 
 interface DownloadModalProps {
   isOpen: boolean;

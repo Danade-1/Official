@@ -13,8 +13,7 @@ import { FAQAccordion } from "./components/faq-accordion";
 import { DownloadModal } from "./components/download-modal";
 import { Footer } from "./components/footer";
 import { BookOpen, Download } from "lucide-react";
-
-const APP_URL = "https://sermon-note-manager-ddaw-i8r8do9e3-danny-077a.vercel.app";
+import { APP_URL } from "./constants";
 
 export default function LandingPage() {
   const [currentTheme, setCurrentTheme] = useState<ThemeKey>("sage");

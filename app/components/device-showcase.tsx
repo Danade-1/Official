@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
-const APP_URL = "https://sermon-note-manager-ddaw-i8r8do9e3-danny-077a.vercel.app";
+import { APP_URL } from "../constants";
 
 interface DesktopViewOption {
   id: "dashboard" | "editor" | "typography";
@@ -36,27 +36,27 @@ const desktopViews: DesktopViewOption[] = [
   {
     id: "dashboard",
     title: "Sermon Library & Overview",
-    subtitle: "Complete bird's-eye view of your sermon series, monthly calendar, and spiritual metrics.",
+    subtitle: "Real-time look at your sermon archive, spiritual metrics, and distraction-free workspace.",
     image: "/images/desktop-dashboard.png",
-    badge: "Dashboard Studio",
+    badge: "Live App Production UI",
     hotspots: [
       {
-        title: "Total Sermons & Progress",
-        description: "Track library growth with monthly note counts and completion metrics.",
-        x: 32,
-        y: 80
+        title: "Devotion Metrics Grid",
+        description: "4-card devotion statistics: Total Sermons, Completed Studies, Keepers, and Most Recent Note.",
+        x: 23,
+        y: 46
       },
       {
-        title: "Global ⌘K Command Palette",
-        description: "Instant universal search for past notes, scriptures, and sermon topics.",
-        x: 48,
-        y: 8
+        title: "+ New Sermon Action",
+        description: "Draft a new sermon note instantly with local-first auto-save and distraction-free writing.",
+        x: 90,
+        y: 30
       },
       {
-        title: "Daily Verse & Calendar",
-        description: "Daily inspirational scripture and calendar heat-dots for Sunday services.",
-        x: 88,
-        y: 35
+        title: "Global ⌘K Universal Search",
+        description: "Search across all past sermons, scripture passages, and key biblical insights in milliseconds.",
+        x: 55,
+        y: 6
       }
     ]
   },
@@ -304,16 +304,33 @@ export function DeviceShowcase() {
                       href={APP_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hidden sm:flex items-center gap-1 text-[11px] text-white/70 hover:text-white bg-white/5 px-2.5 py-1 rounded-lg border border-white/10 hover:border-white/20 transition-all"
+                      className="btn-shimmer flex items-center gap-1.5 text-xs font-bold text-black bg-[var(--accent-primary)] hover:brightness-110 px-3.5 py-1.5 rounded-lg shadow-[0_0_15px_var(--accent-primary-glow)] transition-all"
+                      style={{ color: "#000000" }}
                     >
-                      <span>Open Live App</span>
-                      <ExternalLink size={11} />
+                      <span>Test Real Web App</span>
+                      <ExternalLink size={12} />
                     </a>
                   </div>
                 </div>
 
-                {/* Main Desktop Screenshot Area with Interactive Hotspots */}
-                <div className="relative aspect-[16/7.5] sm:aspect-[16/7.4] w-full overflow-hidden bg-[#0b0d11]">
+                {/* Main Desktop Screenshot Area with Direct Live App Launch & Interactive Hotspots */}
+                <div className="relative aspect-[16/9.1] w-full overflow-hidden bg-[#0b0d11] group">
+                  {/* Click to open web app link overlay */}
+                  <a
+                    href={APP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block absolute inset-0 z-10 cursor-pointer"
+                    title="Click anywhere to launch and test this live app in your browser"
+                  >
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px] z-10 pointer-events-none">
+                      <span className="px-5 py-2.5 rounded-full bg-black/90 border border-white/20 text-white text-xs font-semibold flex items-center gap-2 shadow-2xl">
+                        <span>Click to launch and test real web app</span>
+                        <ExternalLink size={13} className="text-[var(--accent-primary)]" />
+                      </span>
+                    </div>
+                  </a>
+
                   <Image
                     src={selectedDesktopView.image}
                     alt={selectedDesktopView.title}
@@ -332,10 +349,14 @@ export function DeviceShowcase() {
                       <div
                         key={idx}
                         style={{ left: `${spot.x}%`, top: `${spot.y}%` }}
-                        className="absolute -translate-x-1/2 -translate-y-1/2 z-20"
+                        className="absolute -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-auto"
+                        onClick={(e) => e.stopPropagation()}
                       >
                         <button
-                          onClick={() => setActiveHotspot(isActive ? null : idx)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setActiveHotspot(isActive ? null : idx);
+                          }}
                           className="relative flex items-center justify-center p-2 group cursor-pointer"
                         >
                           <span className="absolute w-7 h-7 rounded-full bg-[var(--accent-primary)] opacity-40 animate-ping" />
@@ -352,13 +373,17 @@ export function DeviceShowcase() {
                               animate={{ opacity: 1, y: 0, scale: 1 }}
                               exit={{ opacity: 0, y: 10, scale: 0.95 }}
                               className="absolute bottom-8 left-1/2 -translate-x-1/2 w-64 p-3.5 rounded-xl bg-[#171b24]/95 border border-[var(--accent-primary-border)] shadow-2xl backdrop-blur-xl z-30 text-left pointer-events-auto"
+                              onClick={(e) => e.stopPropagation()}
                             >
                               <div className="flex items-center justify-between mb-1">
                                 <span className="text-[10px] uppercase font-bold text-[var(--accent-primary)] tracking-wider">
                                   {spot.title}
                                 </span>
                                 <button
-                                  onClick={() => setActiveHotspot(null)}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setActiveHotspot(null);
+                                  }}
                                   className="text-white/40 hover:text-white text-xs"
                                 >
                                   ✕
@@ -375,16 +400,26 @@ export function DeviceShowcase() {
                   })}
                 </div>
 
-                {/* Bottom Bar Info */}
-                <div className="h-10 bg-[#14171e] border-t border-white/[0.06] px-5 flex items-center justify-between text-xs text-[var(--text-secondary)]">
+                {/* Bottom Bar Info & Real App Test Trigger */}
+                <div className="h-11 bg-[#14171e] border-t border-white/[0.06] px-5 flex items-center justify-between text-xs text-[var(--text-secondary)]">
                   <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-primary)]" />
                     <span>{selectedDesktopView.subtitle}</span>
                   </div>
 
-                  <span className="hidden sm:inline text-[11px] text-white/40">
-                    Click glowing numbers to explore features
-                  </span>
+                  <div className="flex items-center gap-4">
+                    <span className="hidden sm:inline text-[11px] text-white/40">
+                      Click glowing pins to explore features
+                    </span>
+                    <a
+                      href={APP_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-[11px] font-semibold text-[var(--accent-primary)] hover:underline"
+                    >
+                      <span>Open Live App ↗</span>
+                    </a>
+                  </div>
                 </div>
               </motion.div>
             ) : (
@@ -477,6 +512,23 @@ export function DeviceShowcase() {
             )}
           </AnimatePresence>
         </motion.div>
+
+        {/* Real Web App Launch Prompt Bar */}
+        <div className="mt-12 text-center flex flex-col sm:flex-row items-center justify-center gap-3.5">
+          <span className="text-xs text-[var(--text-secondary)]">
+            Ready to test your real sermon library right now?
+          </span>
+          <a
+            href={APP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-shimmer inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-xs text-black bg-[var(--accent-primary)] hover:brightness-110 transition-all shadow-[0_0_20px_var(--accent-primary-glow)] hover:scale-105 active:scale-95"
+            style={{ color: "#000000" }}
+          >
+            <span>Launch Real Web App Now</span>
+            <ExternalLink size={13} />
+          </a>
+        </div>
 
       </div>
     </section>

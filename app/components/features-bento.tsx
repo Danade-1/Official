@@ -12,8 +12,10 @@ import {
   Lock,
   Compass,
   Layers,
-  ArrowUpRight
+  ArrowUpRight,
+  ExternalLink
 } from "lucide-react";
+import { APP_URL } from "../constants";
 
 export function FeaturesBento() {
   const bentoCards = [
@@ -187,10 +189,53 @@ export function FeaturesBento() {
                 </p>
               </div>
 
-              {card.interactiveElement}
+              <div>
+                {card.interactiveElement}
+                
+                <div className="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between">
+                  <span className="text-[11px] text-white/40">Real feature in app</span>
+                  <a
+                    href={APP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--accent-primary)] hover:underline"
+                  >
+                    <span>Test in Live App</span>
+                    <ArrowUpRight size={13} />
+                  </a>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Interactive Launch Callout */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-14 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-white/[0.04] via-white/[0.02] to-transparent border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl"
+        >
+          <div className="text-left">
+            <h4 className="text-lg font-bold text-white mb-1">
+              Experience all features live in your browser
+            </h4>
+            <p className="text-xs text-[var(--text-secondary)]">
+              No sign-up or installation required. Test the real, fully functional sanctuary editor right now.
+            </p>
+          </div>
+
+          <a
+            href={APP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-shimmer flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-xs text-black bg-[var(--accent-primary)] hover:brightness-110 transition-all shadow-[0_0_20px_var(--accent-primary-glow)] hover:scale-105 active:scale-95 flex-shrink-0"
+            style={{ color: "#000000" }}
+          >
+            <span>Launch Web App Now</span>
+            <ExternalLink size={14} />
+          </a>
+        </motion.div>
 
       </div>
     </section>

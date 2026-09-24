@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Feather, Menu, X, ExternalLink, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const APP_URL = "https://sermon-note-manager-ddaw-i8r8do9e3-danny-077a.vercel.app";
+import { APP_URL } from "../constants";
 
 interface NavbarProps {
   onOpenDownload?: () => void;
@@ -24,7 +24,6 @@ export function Navbar({ onOpenDownload }: NavbarProps) {
 
   const navLinks = [
     { label: "Features", href: "#features" },
-    { label: "Experience", href: "#experience" },
     { label: "Scripture Tool", href: "#scripture" },
     { label: "Platforms", href: "#platforms" },
     { label: "FAQ", href: "#faq" },
@@ -65,6 +64,15 @@ export function Navbar({ onOpenDownload }: NavbarProps) {
               {link.label}
             </a>
           ))}
+          <a
+            href={APP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-[var(--accent-primary)] hover:text-white font-semibold transition-colors duration-200"
+          >
+            <span>Test Web App</span>
+            <ExternalLink size={13} />
+          </a>
         </nav>
 
         {/* Right CTA Actions */}
