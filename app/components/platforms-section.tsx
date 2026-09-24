@@ -14,6 +14,7 @@ export function PlatformsSection({ onOpenDownload }: PlatformsSectionProps) {
     {
       id: "web",
       name: "Web Application",
+      badge: "Instant Access",
       description: "Access your spiritual sanctuary from any computer or tablet browser with zero install required. PWA installable.",
       icon: <Globe size={26} className="text-[var(--accent-primary)]" />,
       features: [
@@ -38,6 +39,7 @@ export function PlatformsSection({ onOpenDownload }: PlatformsSectionProps) {
     {
       id: "windows",
       name: "Windows Desktop",
+      badge: ".EXE Installer",
       description: "Dedicated sanctuary application for deep sermon preparation, pastoral writing, and long-form study.",
       icon: <Monitor size={26} className="text-[var(--accent-lavender)]" />,
       features: [
@@ -47,18 +49,28 @@ export function PlatformsSection({ onOpenDownload }: PlatformsSectionProps) {
         "Automatic background cloud sync"
       ],
       primaryAction: (
-        <button
-          onClick={() => onOpenDownload?.("windows")}
-          className="w-full py-3 rounded-xl font-semibold text-xs text-white bg-white/[0.08] hover:bg-white/[0.14] border border-white/10 transition-all flex items-center justify-center gap-2"
-        >
-          <Download size={14} />
-          <span>Get Windows Build</span>
-        </button>
+        <div className="flex flex-col gap-2 w-full">
+          <a
+            href="/downloads/vessel-setup.exe"
+            download="vessel-setup.exe"
+            className="w-full py-3 rounded-xl font-semibold text-xs text-white bg-purple-600 hover:bg-purple-500 border border-purple-400/30 transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(168,85,247,0.3)]"
+          >
+            <Download size={14} />
+            <span>Download Windows (.exe)</span>
+          </a>
+          <button
+            onClick={() => onOpenDownload?.("windows")}
+            className="text-[11px] text-white/50 hover:text-white/80 py-1 transition-colors"
+          >
+            View Installation Instructions
+          </button>
+        </div>
       )
     },
     {
       id: "android",
       name: "Android Mobile",
+      badge: ".APK Package",
       description: "Your pocket devotion companion. Take notes on the go, record sermons with hands-free voice dictation, and browse scripture.",
       icon: <Smartphone size={26} className="text-[var(--accent-coral)]" />,
       features: [
@@ -68,13 +80,22 @@ export function PlatformsSection({ onOpenDownload }: PlatformsSectionProps) {
         "Instant offline access in church sanctuary"
       ],
       primaryAction: (
-        <button
-          onClick={() => onOpenDownload?.("android")}
-          className="w-full py-3 rounded-xl font-semibold text-xs text-white bg-white/[0.08] hover:bg-white/[0.14] border border-white/10 transition-all flex items-center justify-center gap-2"
-        >
-          <Download size={14} />
-          <span>Get Android App</span>
-        </button>
+        <div className="flex flex-col gap-2 w-full">
+          <a
+            href="/downloads/vessel.apk"
+            download="vessel.apk"
+            className="w-full py-3 rounded-xl font-semibold text-xs text-white bg-orange-600 hover:bg-orange-500 border border-orange-400/30 transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(249,115,22,0.3)]"
+          >
+            <Download size={14} />
+            <span>Download Android (.apk)</span>
+          </a>
+          <button
+            onClick={() => onOpenDownload?.("android")}
+            className="text-[11px] text-white/50 hover:text-white/80 py-1 transition-colors"
+          >
+            View Mobile Setup Guide
+          </button>
+        </div>
       )
     }
   ];
@@ -98,31 +119,39 @@ export function PlatformsSection({ onOpenDownload }: PlatformsSectionProps) {
         </div>
 
         {/* Platform Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {platforms.map((platform, idx) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          {platforms.map((p, index) => (
             <motion.div
-              key={platform.id}
+              key={p.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="vessel-glass-card p-8 flex flex-col justify-between"
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.15 }}
+              className="rounded-3xl bg-[#13161c] border border-white/[0.08] p-7 flex flex-col justify-between hover:border-white/20 transition-all group relative overflow-hidden"
             >
+              {/* Subtle Corner Ambient Aura */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/[0.02] rounded-bl-full pointer-events-none group-hover:bg-white/[0.04] transition-colors" />
+
               <div>
-                <div className="w-13 h-13 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center mb-6">
-                  {platform.icon}
+                <div className="flex items-center justify-between mb-5">
+                  <div className="w-12 h-12 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
+                    {p.icon}
+                  </div>
+                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-white/70">
+                    {p.badge}
+                  </span>
                 </div>
 
-                <h3 className="text-2xl font-serif font-bold text-white mb-3">
-                  {platform.name}
+                <h3 className="text-xl font-serif font-bold text-white mb-2">
+                  {p.name}
                 </h3>
-                <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6">
-                  {platform.description}
+                <p className="text-xs text-[var(--text-secondary)] leading-relaxed mb-6">
+                  {p.description}
                 </p>
 
-                <div className="space-y-2.5 pt-4 border-t border-white/[0.06] mb-8">
-                  {platform.features.map((feat) => (
-                    <div key={feat} className="flex items-start gap-2.5 text-xs text-white/80">
+                <div className="space-y-2.5 mb-8">
+                  {p.features.map((feat, i) => (
+                    <div key={i} className="flex items-start gap-2.5 text-xs text-white/80">
                       <Check size={14} className="text-[var(--accent-primary)] flex-shrink-0 mt-0.5" />
                       <span>{feat}</span>
                     </div>
@@ -130,7 +159,9 @@ export function PlatformsSection({ onOpenDownload }: PlatformsSectionProps) {
                 </div>
               </div>
 
-              {platform.primaryAction}
+              <div className="pt-4 border-t border-white/[0.05]">
+                {p.primaryAction}
+              </div>
             </motion.div>
           ))}
         </div>

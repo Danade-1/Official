@@ -1,40 +1,177 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import {
   Monitor,
   Smartphone,
   BookOpen,
-  Search,
-  CheckCircle2,
-  Bell,
-  Heart,
-  Calendar,
-  Tag,
-  Settings,
-  Mic,
-  Undo2,
-  Redo2,
-  Type,
-  Bold,
-  Italic,
-  List,
-  ListTodo,
   Sparkles,
-  Cloud,
-  FileText,
-  Clock,
-  Feather
+  ExternalLink,
+  Layers,
+  Palette,
+  Calendar,
+  Mic,
+  Maximize2
 } from "lucide-react";
+import Image from "next/image";
+
+const APP_URL = "https://sermon-note-manager-ddaw-i8r8do9e3-danny-077a.vercel.app";
+
+interface DesktopViewOption {
+  id: "dashboard" | "editor" | "typography";
+  title: string;
+  subtitle: string;
+  image: string;
+  badge: string;
+  hotspots: {
+    title: string;
+    description: string;
+    x: number;
+    y: number;
+  }[];
+}
+
+const desktopViews: DesktopViewOption[] = [
+  {
+    id: "dashboard",
+    title: "Sermon Library & Overview",
+    subtitle: "Complete bird's-eye view of your sermon series, monthly calendar, and spiritual metrics.",
+    image: "/images/desktop-dashboard.png",
+    badge: "Dashboard Studio",
+    hotspots: [
+      {
+        title: "Total Sermons & Progress",
+        description: "Track library growth with monthly note counts and completion metrics.",
+        x: 32,
+        y: 80
+      },
+      {
+        title: "Global ⌘K Command Palette",
+        description: "Instant universal search for past notes, scriptures, and sermon topics.",
+        x: 48,
+        y: 8
+      },
+      {
+        title: "Daily Verse & Calendar",
+        description: "Daily inspirational scripture and calendar heat-dots for Sunday services.",
+        x: 88,
+        y: 35
+      }
+    ]
+  },
+  {
+    id: "editor",
+    title: "Focus Note Canvas (3-Pane)",
+    subtitle: "Distraction-free markdown writing with live scripture attachments and series metadata.",
+    image: "/images/desktop-editor.png",
+    badge: "Focus Writing",
+    hotspots: [
+      {
+        title: "Distraction-Free Canvas",
+        description: "Generous margins, serif typography, and zero clutter for focused study.",
+        x: 45,
+        y: 50
+      },
+      {
+        title: "Note Properties & Series",
+        description: "Manage series tags, completion status, and attached key scriptures seamlessly.",
+        x: 85,
+        y: 40
+      },
+      {
+        title: "Floating Floating Dock",
+        description: "Quick access to text formatting, scriptures, and hands-free voice notes.",
+        x: 48,
+        y: 92
+      }
+    ]
+  },
+  {
+    id: "typography",
+    title: "Text & Typography Suite",
+    subtitle: "Rich biblical formatting with emerald-frosted popover, headings, blockquotes, and lists.",
+    image: "/images/desktop-typography.png",
+    badge: "Typography Suite",
+    hotspots: [
+      {
+        title: "Headings & Callouts",
+        description: "H1-H3 headers, biblical blockquotes, and divider rules.",
+        x: 50,
+        y: 32
+      },
+      {
+        title: "Scriptural Lists & Checks",
+        description: "Bullet lists, numbered sermon points, and prayer checklists.",
+        x: 50,
+        y: 62
+      }
+    ]
+  }
+];
+
+interface MobileViewOption {
+  id: "library" | "editor";
+  title: string;
+  subtitle: string;
+  image: string;
+  badge: string;
+  features: string[];
+}
+
+const mobileViews: MobileViewOption[] = [
+  {
+    id: "library",
+    title: "Mobile Sermon Sanctuary",
+    subtitle: "Your complete sermon vault in your pocket, with Sunday calendar and quick note creation.",
+    image: "/images/mobile-library.png",
+    badge: "Pocket Library",
+    features: [
+      "September 2026 Interactive Calendar",
+      "Floating one-tap sermon creator (+)",
+      "Instant cloud sync with notification badges"
+    ]
+  },
+  {
+    id: "editor",
+    title: "Mobile Focus Editor & Dock",
+    subtitle: "Quick sermon note capture during church service with bottom-mounted touch dock.",
+    image: "/images/mobile-editor.png",
+    badge: "Service Companion",
+    features: [
+      "Bottom-anchored thumb-friendly formatting dock",
+      "One-tap voice dictation & speech-to-text",
+      "Clean reading mode with live word count"
+    ]
+  }
+];
 
 export function DeviceShowcase() {
-  const [activeView, setActiveView] = useState<"desktop" | "mobile">("desktop");
-  const [activeTab, setActiveTab] = useState<"editor" | "scripture" | "properties">("editor");
-  const [isRecordingSim, setIsRecordingSim] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [deviceType, setDeviceType] = useState<"desktop" | "mobile">("desktop");
+  const [selectedDesktopView, setSelectedDesktopView] = useState<DesktopViewOption>(desktopViews[0]);
+  const [selectedMobileView, setSelectedMobileView] = useState<MobileViewOption>(mobileViews[0]);
+  const [activeHotspot, setActiveHotspot] = useState<number | null>(null);
+
+  // Scroll driven 3D perspective tilt
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "center center"]
+  });
+
+  const rotateX = useTransform(scrollYProgress, [0, 1], [14, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [0.93, 1]);
+  const shadowOpacity = useTransform(scrollYProgress, [0, 1], [0.3, 0.8]);
 
   return (
-    <section id="experience" className="py-24 relative overflow-hidden">
+    <section
+      ref={containerRef}
+      id="experience"
+      className="py-24 relative overflow-hidden bg-[var(--bg-deep)]"
+    >
+      {/* Background Ambient Radial Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[550px] bg-[var(--accent-primary-dim)] rounded-full blur-[160px] pointer-events-none opacity-30" />
+
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         
         {/* Section Header */}
@@ -43,375 +180,303 @@ export function DeviceShowcase() {
             <Sparkles size={14} />
             <span>Dual Experience</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-serif font-bold text-white mb-4 tracking-tight">
+
+          <h2 className="text-3xl sm:text-5xl font-serif font-bold text-white mb-4 tracking-tight leading-tight">
             Crafted for Big Screens & Mobile Sanctuary
           </h2>
+
           <p className="text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed">
-            Whether preparing a sermon at your desk or taking quick devotional notes on your phone during Sunday service, Vessel delivers a unified, serene experience.
+            Whether preparing a detailed sermon manuscript at your study desk or recording quick devotional revelations on your phone during Sunday worship, Vessel is designed to feel native, responsive, and serene.
           </p>
 
-          {/* Desktop / Mobile Switcher Pill */}
+          {/* Device Type Toggle (Desktop vs Mobile) */}
           <div className="inline-flex items-center p-1.5 rounded-full bg-white/[0.04] border border-white/10 mt-8 backdrop-blur-lg">
             <button
-              onClick={() => setActiveView("desktop")}
+              onClick={() => {
+                setDeviceType("desktop");
+                setActiveHotspot(null);
+              }}
               className={`flex items-center gap-2 px-5 py-2 rounded-full text-xs font-semibold transition-all ${
-                activeView === "desktop"
-                  ? "bg-[var(--accent-primary)] text-black shadow-[0_0_20px_var(--accent-primary-glow)]"
+                deviceType === "desktop"
+                  ? "bg-[var(--accent-primary)] text-black shadow-[0_0_20px_var(--accent-primary-glow)] font-bold"
                   : "text-white/70 hover:text-white"
               }`}
-              style={activeView === "desktop" ? { color: "#000000" } : {}}
+              style={deviceType === "desktop" ? { color: "#000000" } : {}}
             >
               <Monitor size={15} />
               <span>Desktop Workspace</span>
             </button>
 
             <button
-              onClick={() => setActiveView("mobile")}
+              onClick={() => {
+                setDeviceType("mobile");
+                setActiveHotspot(null);
+              }}
               className={`flex items-center gap-2 px-5 py-2 rounded-full text-xs font-semibold transition-all ${
-                activeView === "mobile"
-                  ? "bg-[var(--accent-primary)] text-black shadow-[0_0_20px_var(--accent-primary-glow)]"
+                deviceType === "mobile"
+                  ? "bg-[var(--accent-primary)] text-black shadow-[0_0_20px_var(--accent-primary-glow)] font-bold"
                   : "text-white/70 hover:text-white"
               }`}
-              style={activeView === "mobile" ? { color: "#000000" } : {}}
+              style={deviceType === "mobile" ? { color: "#000000" } : {}}
             >
               <Smartphone size={15} />
               <span>Mobile Sanctuary</span>
             </button>
           </div>
+
+          {/* Sub-view switcher tabs */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mt-5">
+            {deviceType === "desktop" ? (
+              desktopViews.map((view) => (
+                <button
+                  key={view.id}
+                  onClick={() => {
+                    setSelectedDesktopView(view);
+                    setActiveHotspot(null);
+                  }}
+                  className={`px-4 py-1.5 rounded-xl text-xs font-medium transition-all ${
+                    selectedDesktopView.id === view.id
+                      ? "bg-white/15 text-white border border-white/20 shadow-sm"
+                      : "text-white/50 hover:text-white/80 bg-white/[0.02]"
+                  }`}
+                >
+                  {view.title}
+                </button>
+              ))
+            ) : (
+              mobileViews.map((view) => (
+                <button
+                  key={view.id}
+                  onClick={() => setSelectedMobileView(view)}
+                  className={`px-4 py-1.5 rounded-xl text-xs font-medium transition-all ${
+                    selectedMobileView.id === view.id
+                      ? "bg-white/15 text-white border border-white/20 shadow-sm"
+                      : "text-white/50 hover:text-white/80 bg-white/[0.02]"
+                  }`}
+                >
+                  {view.title}
+                </button>
+              ))
+            )}
+          </div>
         </div>
 
-        {/* ============================================================
-            DESKTOP VIEWPORT MOCKUP (Full 3-Pane Independent Workspace)
-            ============================================================ */}
-        <AnimatePresence mode="wait">
-          {activeView === "desktop" ? (
-            <motion.div
-              key="desktop-view"
-              initial={{ opacity: 0, y: 30, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.98 }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="device-desktop-frame max-w-6xl mx-auto"
-            >
-              {/* Desktop Window Title Bar */}
-              <div className="h-10 bg-[#161a22] border-b border-white/[0.07] px-4 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                  <div className="w-3 h-3 rounded-full bg-amber-500/80" />
-                  <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-                  <span className="text-[11px] font-medium text-white/40 ml-2">
-                    Vessel Desktop — Romans 12:2 Sermon Note
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] text-[var(--accent-primary)] bg-[var(--accent-primary-dim)] px-2.5 py-0.5 rounded-full border border-[var(--accent-primary-border)] font-medium">
-                    Cloud Synced
-                  </span>
-                </div>
-              </div>
-
-              {/* 3-Column Layout: Sidebar + Canvas + Note Inspector */}
-              <div className="flex flex-col lg:flex-row min-h-[560px] bg-[var(--bg-deep)]">
-                
-                {/* 1. Left Narrow Icon Sidebar */}
-                <div className="hidden sm:flex flex-col items-center justify-between w-14 lg:w-16 py-5 bg-[#13161c] border-r border-white/[0.06] flex-shrink-0">
-                  <div className="flex flex-col items-center gap-6">
-                    <div className="w-9 h-9 rounded-xl bg-[var(--accent-primary-dim)] border border-[var(--accent-primary-border)] text-[var(--accent-primary)] flex items-center justify-center shadow-[0_0_12px_var(--accent-primary-dim)]">
-                      <Feather size={18} />
-                    </div>
-
-                    <div className="flex flex-col items-center gap-4 text-white/40">
-                      <button className="p-2 rounded-lg bg-white/[0.08] text-[var(--accent-primary)]">
-                        <FileText size={18} />
-                      </button>
-                      <button className="p-2 rounded-lg hover:text-white transition-colors">
-                        <Heart size={18} />
-                      </button>
-                      <button className="p-2 rounded-lg hover:text-white transition-colors">
-                        <Calendar size={18} />
-                      </button>
-                      <button className="p-2 rounded-lg hover:text-white transition-colors">
-                        <BookOpen size={18} />
-                      </button>
-                      <button className="p-2 rounded-lg hover:text-white transition-colors">
-                        <Tag size={18} />
-                      </button>
-                    </div>
+        {/* 3D Scroll Perspective Frame */}
+        <motion.div
+          style={{
+            rotateX: rotateX,
+            scale: scale,
+            transformPerspective: 1200
+          }}
+          className="transition-transform duration-200"
+        >
+          <AnimatePresence mode="wait">
+            {deviceType === "desktop" ? (
+              /* ============================================================
+                 DESKTOP HARDWARE FRAME WITH POLISHED USER SCREENSHOTS
+                 ============================================================ */
+              <motion.div
+                key={`desktop-${selectedDesktopView.id}`}
+                initial={{ opacity: 0, y: 25 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4 }}
+                className="max-w-6xl mx-auto rounded-2xl overflow-hidden border border-white/15 bg-[#12151b] shadow-[0_30px_90px_rgba(0,0,0,0.85)] relative"
+              >
+                {/* Desktop Window Title Bar */}
+                <div className="h-10 bg-[#161a22] border-b border-white/[0.08] px-4 flex items-center justify-between select-none">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-rose-500/80 hover:opacity-80 transition-opacity" />
+                    <div className="w-3 h-3 rounded-full bg-amber-500/80 hover:opacity-80 transition-opacity" />
+                    <div className="w-3 h-3 rounded-full bg-emerald-500/80 hover:opacity-80 transition-opacity" />
+                    <span className="text-[11px] font-medium text-white/50 ml-3 hidden sm:inline">
+                      Vessel Sermon Studio — {selectedDesktopView.title}
+                    </span>
                   </div>
 
-                  <div className="flex flex-col items-center gap-3">
-                    <button className="p-2 rounded-lg text-white/40 hover:text-white transition-colors">
-                      <Settings size={18} />
-                    </button>
-                    <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-rose-500 to-amber-500 flex items-center justify-center text-[10px] font-bold text-white">
-                      J
-                    </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] text-[var(--accent-primary)] bg-[var(--accent-primary-dim)] px-2.5 py-0.5 rounded-full border border-[var(--accent-primary-border)] font-semibold flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-primary)] animate-pulse" />
+                      <span>Cloud Synced</span>
+                    </span>
+
+                    <a
+                      href={APP_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hidden sm:flex items-center gap-1 text-[11px] text-white/70 hover:text-white bg-white/5 px-2.5 py-1 rounded-lg border border-white/10 hover:border-white/20 transition-all"
+                    >
+                      <span>Open Live App</span>
+                      <ExternalLink size={11} />
+                    </a>
                   </div>
                 </div>
 
-                {/* 2. Central Editor Canvas */}
-                <div className="flex-1 flex flex-col p-6 sm:p-8 relative">
-                  {/* Top Canvas Bar */}
-                  <div className="flex items-center justify-between pb-5 border-b border-white/[0.06] mb-6">
-                    <div className="flex items-center gap-3">
-                      <span className="text-xs font-medium text-[var(--text-muted)]">Sunday Series</span>
-                      <span className="text-xs text-white/20">/</span>
-                      <span className="text-xs font-semibold text-white">Romans: Renewed Mind</span>
-                    </div>
+                {/* Main Desktop Screenshot Area with Interactive Hotspots */}
+                <div className="relative aspect-[16/7.5] sm:aspect-[16/7.4] w-full overflow-hidden bg-[#0b0d11]">
+                  <Image
+                    src={selectedDesktopView.image}
+                    alt={selectedDesktopView.title}
+                    fill
+                    priority
+                    className="object-cover object-top filter brightness-[1.02] contrast-[1.02]"
+                  />
 
-                    {/* Command Palette Mock Input */}
-                    <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.08] text-xs text-[var(--text-muted)]">
-                      <Search size={13} />
-                      <span>Search scriptures & notes...</span>
-                      <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-[10px] text-white/70">⌘K</kbd>
-                    </div>
-                  </div>
+                  {/* Subtle Specular Top Reflection */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-white/[0.04] via-transparent to-black/20 pointer-events-none" />
 
-                  {/* Sermon Document Content */}
-                  <div className="max-w-2xl">
-                    <h1 className="text-2xl sm:text-3xl font-serif font-bold text-white mb-2 leading-tight">
-                      The Power of Transforming Grace
-                    </h1>
-                    <div className="flex items-center gap-4 text-xs text-[var(--text-muted)] mb-6">
-                      <span>Oct 18, 2026</span>
-                      <span>•</span>
-                      <span>Speaker: Pastor David Miller</span>
-                      <span>•</span>
-                      <span className="text-[var(--accent-primary)]">3 min read</span>
-                    </div>
-
-                    {/* Formatted Text & Scripture Callout */}
-                    <div className="space-y-4 text-sm text-[var(--text-secondary)] leading-relaxed">
-                      <p>
-                        True spiritual transformation begins with a shift in perspective. Paul emphasizes that the world constantly pressures our thought patterns, but renewal comes from God's Word.
-                      </p>
-
-                      {/* Embedded Scripture Blockquote */}
-                      <div className="p-4 rounded-xl bg-[var(--accent-primary-dim)] border-l-4 border-[var(--accent-primary)] border-white/[0.06] my-4 shadow-sm">
-                        <div className="flex items-center gap-2 text-xs font-semibold text-[var(--accent-primary)] mb-1.5">
-                          <BookOpen size={14} />
-                          <span>Romans 12:2 (NIV)</span>
-                        </div>
-                        <p className="font-serif italic text-white/90 text-sm leading-relaxed">
-                          "Do not conform to the pattern of this world, but be transformed by the renewing of your mind. Then you will be able to test and approve what God’s will is—his good, pleasing and perfect will."
-                        </p>
-                      </div>
-
-                      <p>
-                        <strong>Three Steps to Renewing the Mind:</strong>
-                      </p>
-
-                      <div className="space-y-2 text-xs text-white/80">
-                        <div className="flex items-center gap-2.5">
-                          <CheckCircle2 size={15} className="text-[var(--accent-primary)] flex-shrink-0" />
-                          <span>Filter inputs against biblical truth</span>
-                        </div>
-                        <div className="flex items-center gap-2.5">
-                          <CheckCircle2 size={15} className="text-[var(--accent-primary)] flex-shrink-0" />
-                          <span>Daily meditation and scripture repetition</span>
-                        </div>
-                        <div className="flex items-center gap-2.5">
-                          <CheckCircle2 size={15} className="text-[var(--accent-primary)] flex-shrink-0" />
-                          <span>Accountability through Christian community</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Floating Bottom Dock Pill inside Desktop Editor */}
-                  <div className="mt-8 flex justify-center">
-                    <div className="mobile-preview-dock">
-                      <button className="mobile-preview-dock-btn active">T</button>
-                      <button className="mobile-preview-dock-btn">B</button>
-                      <button className="mobile-preview-dock-btn">I</button>
-                      <div className="w-px h-4 bg-white/15 mx-0.5" />
-                      <button className="mobile-preview-dock-btn"><List size={13} /></button>
-                      <button className="mobile-preview-dock-btn"><ListTodo size={13} /></button>
-                      <div className="w-px h-4 bg-white/15 mx-0.5" />
-                      <button className="mobile-preview-dock-btn active text-[var(--accent-primary)]">
-                        <BookOpen size={13} />
-                      </button>
-                      <button
-                        onClick={() => setIsRecordingSim(!isRecordingSim)}
-                        className={`mobile-preview-dock-btn text-rose-400 ${isRecordingSim ? "animate-pulse scale-110" : ""}`}
-                        title="Voice dictation"
+                  {/* Interactive Hotspot Pins */}
+                  {selectedDesktopView.hotspots.map((spot, idx) => {
+                    const isActive = activeHotspot === idx;
+                    return (
+                      <div
+                        key={idx}
+                        style={{ left: `${spot.x}%`, top: `${spot.y}%` }}
+                        className="absolute -translate-x-1/2 -translate-y-1/2 z-20"
                       >
-                        <Mic size={13} />
-                      </button>
+                        <button
+                          onClick={() => setActiveHotspot(isActive ? null : idx)}
+                          className="relative flex items-center justify-center p-2 group cursor-pointer"
+                        >
+                          <span className="absolute w-7 h-7 rounded-full bg-[var(--accent-primary)] opacity-40 animate-ping" />
+                          <span className="relative w-5 h-5 rounded-full bg-[var(--accent-primary)] text-black flex items-center justify-center text-[10px] font-bold shadow-[0_0_12px_var(--accent-primary)] transition-transform group-hover:scale-125">
+                            {idx + 1}
+                          </span>
+                        </button>
+
+                        {/* Hotspot Popover Tooltip */}
+                        <AnimatePresence>
+                          {isActive && (
+                            <motion.div
+                              initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                              animate={{ opacity: 1, y: 0, scale: 1 }}
+                              exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                              className="absolute bottom-8 left-1/2 -translate-x-1/2 w-64 p-3.5 rounded-xl bg-[#171b24]/95 border border-[var(--accent-primary-border)] shadow-2xl backdrop-blur-xl z-30 text-left pointer-events-auto"
+                            >
+                              <div className="flex items-center justify-between mb-1">
+                                <span className="text-[10px] uppercase font-bold text-[var(--accent-primary)] tracking-wider">
+                                  {spot.title}
+                                </span>
+                                <button
+                                  onClick={() => setActiveHotspot(null)}
+                                  className="text-white/40 hover:text-white text-xs"
+                                >
+                                  ✕
+                                </button>
+                              </div>
+                              <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+                                {spot.description}
+                              </p>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Bottom Bar Info */}
+                <div className="h-10 bg-[#14171e] border-t border-white/[0.06] px-5 flex items-center justify-between text-xs text-[var(--text-secondary)]">
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-primary)]" />
+                    <span>{selectedDesktopView.subtitle}</span>
+                  </div>
+
+                  <span className="hidden sm:inline text-[11px] text-white/40">
+                    Click glowing numbers to explore features
+                  </span>
+                </div>
+              </motion.div>
+            ) : (
+              /* ============================================================
+                 MOBILE HARDWARE FRAME WITH POLISHED USER SCREENSHOTS
+                 ============================================================ */
+              <motion.div
+                key={`mobile-${selectedMobileView.id}`}
+                initial={{ opacity: 0, y: 25 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4 }}
+                className="flex flex-col lg:flex-row items-center justify-center gap-12 max-w-4xl mx-auto"
+              >
+                {/* Mobile Smartphone Chassis Frame */}
+                <div className="relative w-[310px] sm:w-[340px] rounded-[48px] p-3.5 bg-gradient-to-b from-[#2a2e39] via-[#1a1d25] to-[#12141a] border border-white/20 shadow-[0_30px_90px_rgba(0,0,0,0.9)]">
+                  {/* Outer Rim Details */}
+                  <div className="relative rounded-[38px] overflow-hidden bg-black border border-white/10">
+                    
+                    {/* Dynamic Island / Speaker Pill */}
+                    <div className="h-7 bg-[#0d0f13] flex items-center justify-center relative z-20">
+                      <div className="w-20 h-4 bg-black rounded-full flex items-center justify-end px-2 border border-white/5">
+                        <div className="w-2 h-2 rounded-full bg-blue-950/60 border border-blue-500/30" />
+                      </div>
+                    </div>
+
+                    {/* Smartphone Screen Content */}
+                    <div className="relative aspect-[9/15.5] w-full overflow-hidden bg-[#0c0e12]">
+                      <Image
+                        src={selectedMobileView.image}
+                        alt={selectedMobileView.title}
+                        fill
+                        priority
+                        className="object-cover object-top filter brightness-[1.02]"
+                      />
+
+                      {/* Screen Glaze */}
+                      <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.03] to-transparent pointer-events-none" />
+                    </div>
+
+                    {/* Bottom Home Indicator Bar */}
+                    <div className="h-5 bg-[#0d0f13] flex items-center justify-center">
+                      <div className="w-28 h-1 bg-white/30 rounded-full" />
                     </div>
                   </div>
                 </div>
 
-                {/* 3. Right Note Properties Panel */}
-                <div className="w-full lg:w-72 bg-[#13161c] border-t lg:border-t-0 lg:border-l border-white/[0.06] p-6 flex flex-col gap-6 flex-shrink-0">
-                  <div>
-                    <span className="text-[11px] font-semibold text-[var(--text-muted)] tracking-wider uppercase">
-                      Note Properties
-                    </span>
-                    <div className="mt-3 space-y-3">
-                      <div>
-                        <span className="text-xs text-white/50 block mb-1">Status</span>
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-emerald-500/10 text-emerald-400 text-xs font-medium border border-emerald-500/20">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                          <span>In Progress</span>
-                        </div>
-                      </div>
-
-                      <div>
-                        <span className="text-xs text-white/50 block mb-1">Primary Scripture</span>
-                        <div className="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/[0.06] text-xs text-white">
-                          <BookOpen size={13} className="text-[var(--accent-primary)]" />
-                          <span>Romans 12:1-2</span>
-                        </div>
-                      </div>
-
-                      <div>
-                        <span className="text-xs text-white/50 block mb-1.5">AI Auto-Tags</span>
-                        <div className="flex flex-wrap gap-1.5">
-                          <span className="px-2 py-0.5 rounded-md bg-white/[0.04] text-[11px] text-[var(--accent-primary)] border border-[var(--accent-primary-border)] font-medium">
-                            #Grace
-                          </span>
-                          <span className="px-2 py-0.5 rounded-md bg-white/[0.04] text-[11px] text-purple-400 border border-purple-500/30 font-medium">
-                            #MindRenewal
-                          </span>
-                          <span className="px-2 py-0.5 rounded-md bg-white/[0.04] text-[11px] text-amber-400 border border-amber-500/30 font-medium">
-                            #Devotion
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+                {/* Mobile Companion Storytelling Panel */}
+                <div className="max-w-md text-left">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-[var(--accent-primary)] mb-3">
+                    <Smartphone size={13} />
+                    <span>{selectedMobileView.badge}</span>
                   </div>
 
-                  <div className="pt-4 border-t border-white/[0.06]">
-                    <span className="text-[11px] font-semibold text-[var(--text-muted)] tracking-wider uppercase">
-                      Spiritual Devotion
-                    </span>
-                    <div className="mt-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.05] flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <Heart size={15} className="text-rose-400 fill-rose-400" />
-                        <span className="text-xs text-white font-medium">Marked Keeper</span>
-                      </div>
-                      <span className="text-[10px] text-[var(--accent-primary)] font-semibold uppercase">Active</span>
-                    </div>
-                  </div>
-                </div>
+                  <h3 className="text-2xl sm:text-3xl font-serif font-bold text-white mb-3">
+                    {selectedMobileView.title}
+                  </h3>
 
-              </div>
-            </motion.div>
-          ) : (
-            /* ============================================================
-               MOBILE VIEWPORT MOCKUP (Phone Frame with Bottom Dock & Carousel)
-               ============================================================ */
-            <motion.div
-              key="mobile-view"
-              initial={{ opacity: 0, y: 30, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.98 }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="flex justify-center"
-            >
-              <div className="device-mobile-frame">
-                {/* Phone Speaker Notch */}
-                <div className="h-6 bg-[#161920] flex items-center justify-center">
-                  <div className="w-16 h-3.5 bg-black rounded-full" />
-                </div>
+                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6">
+                    {selectedMobileView.subtitle}
+                  </p>
 
-                {/* Phone Content Screen */}
-                <div className="p-5 flex flex-col h-[540px] justify-between relative overflow-y-auto">
-                  
-                  {/* Top App Header */}
-                  <div>
-                    <div className="flex items-center justify-between pb-3 border-b border-white/[0.07]">
-                      <div className="flex items-center gap-2">
-                        <div className="w-7 h-7 rounded-lg bg-[var(--accent-primary-dim)] text-[var(--accent-primary)] flex items-center justify-center">
-                          <Feather size={15} />
+                  <div className="space-y-3 mb-8">
+                    {selectedMobileView.features.map((feature, i) => (
+                      <div key={i} className="flex items-start gap-3">
+                        <div className="w-5 h-5 rounded-full bg-[var(--accent-primary-dim)] text-[var(--accent-primary)] flex items-center justify-center flex-shrink-0 mt-0.5">
+                          ✓
                         </div>
-                        <span className="font-serif text-base font-bold text-white">Vessel</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                        <span className="text-[10px] text-white/50">Cloud Synced</span>
-                      </div>
-                    </div>
-
-                    {/* Mobile Stats Carousel Preview */}
-                    <div className="mt-4">
-                      <div className="flex gap-2.5 overflow-x-auto pb-2 scrollbar-none">
-                        <div className="min-w-[130px] p-3 rounded-xl bg-white/[0.04] border border-white/[0.08]">
-                          <span className="text-[10px] text-[var(--accent-primary)] font-semibold block mb-1">
-                            +12 this mo
-                          </span>
-                          <strong className="text-xl font-bold text-white block">65</strong>
-                          <span className="text-[11px] text-white/50">Total Sermons</span>
-                        </div>
-
-                        <div className="min-w-[130px] p-3 rounded-xl bg-white/[0.04] border border-white/[0.08]">
-                          <span className="text-[10px] text-emerald-400 font-semibold block mb-1">
-                            49% library
-                          </span>
-                          <strong className="text-xl font-bold text-white block">32</strong>
-                          <span className="text-[11px] text-white/50">Completed</span>
-                        </div>
-
-                        <div className="min-w-[130px] p-3 rounded-xl bg-white/[0.04] border border-white/[0.08]">
-                          <span className="text-[10px] text-rose-400 font-semibold block mb-1">
-                            Favorites
-                          </span>
-                          <strong className="text-xl font-bold text-white block">18</strong>
-                          <span className="text-[11px] text-white/50">Keepers</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Mobile Sermon Card */}
-                    <div className="mt-4 p-4 rounded-2xl bg-white/[0.03] border border-white/[0.08]">
-                      <div className="flex items-center justify-between mb-1.5">
-                        <span className="text-[10px] font-semibold text-[var(--accent-primary)] uppercase tracking-wider">
-                          Sunday Sermon
-                        </span>
-                        <span className="text-[10px] text-white/40">Today, 10:45 AM</span>
-                      </div>
-                      <h4 className="text-sm font-semibold text-white mb-2 leading-snug">
-                        The Power of Transforming Grace
-                      </h4>
-                      <div className="p-2.5 rounded-lg bg-[var(--accent-primary-dim)] border-l-2 border-[var(--accent-primary)] text-xs text-white/90 italic mb-3">
-                        "Do not conform to the pattern of this world..." — Rom 12:2
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-[9px] px-2 py-0.5 rounded bg-white/5 text-[var(--accent-primary)]">
-                          #Grace
-                        </span>
-                        <span className="text-[9px] px-2 py-0.5 rounded bg-white/5 text-purple-300">
-                          #RenewedMind
+                        <span className="text-xs text-white/90 font-medium">
+                          {feature}
                         </span>
                       </div>
-                    </div>
+                    ))}
                   </div>
 
-                  {/* Floating Bottom Dock Pill (Mobile Sanctuary Feature) */}
-                  <div className="pt-4 flex justify-center">
-                    <div className="mobile-preview-dock shadow-2xl">
-                      <button className="mobile-preview-dock-btn active">T</button>
-                      <button className="mobile-preview-dock-btn">B</button>
-                      <button className="mobile-preview-dock-btn">I</button>
-                      <div className="w-px h-3.5 bg-white/20 mx-0.5" />
-                      <button className="mobile-preview-dock-btn"><Undo2 size={12} /></button>
-                      <button className="mobile-preview-dock-btn"><Redo2 size={12} /></button>
-                      <div className="w-px h-3.5 bg-white/20 mx-0.5" />
-                      <button className="mobile-preview-dock-btn active text-[var(--accent-primary)]">
-                        <BookOpen size={13} />
-                      </button>
-                      <button className="mobile-preview-dock-btn text-rose-500 hover:text-rose-400">
-                        <Mic size={13} />
-                      </button>
-                    </div>
+                  <div className="flex items-center gap-3">
+                    <a
+                      href={APP_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-xs text-black bg-[var(--accent-primary)] hover:brightness-110 transition-all shadow-[0_0_20px_var(--accent-primary-glow)]"
+                      style={{ color: "#000000" }}
+                    >
+                      <BookOpen size={15} />
+                      <span>Test on Your Phone</span>
+                    </a>
                   </div>
-
                 </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
 
       </div>
     </section>

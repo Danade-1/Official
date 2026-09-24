@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Monitor, Smartphone, Globe, ExternalLink, Download, CheckCircle2 } from "lucide-react";
+import { X, Monitor, Smartphone, Globe, ExternalLink, Download, CheckCircle2, ShieldCheck } from "lucide-react";
 
 const APP_URL = "https://sermon-note-manager-ddaw-i8r8do9e3-danny-077a.vercel.app";
 
@@ -31,7 +31,7 @@ export function DownloadModal({ isOpen, onClose, defaultPlatform }: DownloadModa
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-lg rounded-3xl bg-[#14171d] border border-white/10 p-6 sm:p-8 shadow-2xl z-10"
+            className="relative w-full max-w-lg rounded-3xl bg-[#14171d] border border-white/10 p-6 sm:p-8 shadow-2xl z-10 max-h-[90vh] overflow-y-auto"
           >
             {/* Close Button */}
             <button
@@ -50,27 +50,25 @@ export function DownloadModal({ isOpen, onClose, defaultPlatform }: DownloadModa
                 Get Vessel for Your Device
               </h3>
               <p className="text-xs text-[var(--text-secondary)] mt-1">
-                Choose the best way to run Vessel across your desktop and mobile devices.
+                Download native executables or launch instantly in your web browser.
               </p>
             </div>
 
             <div className="space-y-3.5">
               {/* Option 1: Web App (Instant / PWA) */}
               <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.08] hover:border-[var(--accent-primary-border)] transition-colors">
-                <div className="flex items-start justify-between">
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-[var(--accent-primary-dim)] text-[var(--accent-primary)] flex items-center justify-center flex-shrink-0">
-                      <Globe size={20} />
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-[var(--accent-primary-dim)] text-[var(--accent-primary)] flex items-center justify-center flex-shrink-0">
+                    <Globe size={20} />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-bold text-white">Vessel Web Sanctuary</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-[var(--accent-primary-dim)] text-[var(--accent-primary)] font-semibold">Instant</span>
                     </div>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm font-bold text-white">Vessel Web Sanctuary</span>
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-[var(--accent-primary-dim)] text-[var(--accent-primary)] font-semibold">Recommended</span>
-                      </div>
-                      <p className="text-xs text-[var(--text-secondary)] mt-1">
-                        Runs instantly in any browser. Click "Install" in Chrome or Edge to pin to your desktop or mobile home screen as a standalone app.
-                      </p>
-                    </div>
+                    <p className="text-xs text-[var(--text-secondary)] mt-1">
+                      Zero installation required. Runs in Chrome, Edge, and Safari with full offline local storage and cloud sync.
+                    </p>
                   </div>
                 </div>
                 <div className="mt-3 pt-3 border-t border-white/[0.05] flex justify-end">
@@ -87,65 +85,90 @@ export function DownloadModal({ isOpen, onClose, defaultPlatform }: DownloadModa
                 </div>
               </div>
 
-              {/* Option 2: Windows Desktop */}
-              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.08] hover:border-white/20 transition-colors">
+              {/* Option 2: Windows Desktop (.exe) */}
+              <div className={`p-4 rounded-2xl bg-white/[0.03] border transition-colors ${
+                defaultPlatform === "windows" ? "border-purple-500/50 bg-purple-500/[0.03]" : "border-white/[0.08] hover:border-white/20"
+              }`}>
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center flex-shrink-0">
                     <Monitor size={20} />
                   </div>
-                  <div>
-                    <span className="text-sm font-bold text-white block">Windows Desktop Edition</span>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-bold text-white">Windows Desktop Edition</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 font-semibold">.EXE</span>
+                    </div>
                     <p className="text-xs text-[var(--text-secondary)] mt-1">
-                      Local-first desktop build for Windows 10 & 11 with native keyboard shortcuts and offline SQLite/IndexedDB caching.
+                      Standalone desktop app for Windows 10 & 11 with keyboard shortcuts, distraction-free windowing, and SQLite storage.
                     </p>
                   </div>
                 </div>
-                <div className="mt-3 pt-3 border-t border-white/[0.05] flex items-center justify-between">
-                  <span className="text-[11px] text-white/50">Install via Web App PWA or Direct Link</span>
+                <div className="mt-3 pt-3 border-t border-white/[0.05] flex flex-wrap items-center justify-between gap-2">
+                  <a
+                    href="/downloads/vessel-setup.exe"
+                    download="vessel-setup.exe"
+                    className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-white bg-purple-600 hover:bg-purple-500 transition-all shadow-[0_0_12px_rgba(168,85,247,0.3)]"
+                  >
+                    <Download size={13} />
+                    <span>Download .EXE</span>
+                  </a>
+
                   <a
                     href={APP_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-medium text-white bg-white/10 hover:bg-white/20 transition-all"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium text-white/70 hover:text-white bg-white/5 hover:bg-white/10 transition-all"
                   >
-                    <span>Open in Desktop</span>
+                    <span>Open in Web</span>
                     <ExternalLink size={12} />
                   </a>
                 </div>
               </div>
 
-              {/* Option 3: Android Mobile */}
-              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.08] hover:border-white/20 transition-colors">
+              {/* Option 3: Android Mobile (.apk) */}
+              <div className={`p-4 rounded-2xl bg-white/[0.03] border transition-colors ${
+                defaultPlatform === "android" ? "border-orange-500/50 bg-orange-500/[0.03]" : "border-white/[0.08] hover:border-white/20"
+              }`}>
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-400 flex items-center justify-center flex-shrink-0">
                     <Smartphone size={20} />
                   </div>
-                  <div>
-                    <span className="text-sm font-bold text-white block">Android Mobile Edition</span>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-bold text-white">Android Mobile Edition</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-orange-500/20 text-orange-300 font-semibold">.APK</span>
+                    </div>
                     <p className="text-xs text-[var(--text-secondary)] mt-1">
-                      Add to home screen directly from Chrome on Android for a full-screen native mobile sanctuary with touch bottom dock.
+                      Direct APK package with offline audio recording, touch-optimized bottom dock, and Google Play Store readiness.
                     </p>
                   </div>
                 </div>
-                <div className="mt-3 pt-3 border-t border-white/[0.05] flex items-center justify-between">
-                  <span className="text-[11px] text-white/50">Install via Add to Home Screen</span>
+                <div className="mt-3 pt-3 border-t border-white/[0.05] flex flex-wrap items-center justify-between gap-2">
+                  <a
+                    href="/downloads/vessel.apk"
+                    download="vessel.apk"
+                    className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-white bg-orange-600 hover:bg-orange-500 transition-all shadow-[0_0_12px_rgba(249,115,22,0.3)]"
+                  >
+                    <Download size={13} />
+                    <span>Download .APK</span>
+                  </a>
+
                   <a
                     href={APP_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-medium text-white bg-white/10 hover:bg-white/20 transition-all"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium text-white/70 hover:text-white bg-white/5 hover:bg-white/10 transition-all"
                   >
-                    <span>Open on Android</span>
+                    <span>Open in Web</span>
                     <ExternalLink size={12} />
                   </a>
                 </div>
               </div>
             </div>
 
-            <div className="mt-6 pt-4 text-center border-t border-white/[0.06]">
-              <span className="text-xs text-[var(--text-muted)]">
-                All platforms include Google Cloud Sync & local-first storage.
-              </span>
+            <div className="mt-6 pt-4 text-center border-t border-white/[0.06] flex items-center justify-center gap-2 text-xs text-[var(--text-muted)]">
+              <ShieldCheck size={14} className="text-emerald-400" />
+              <span>Safe & direct downloads • Google Cloud Sync • No credit card</span>
             </div>
           </motion.div>
         </div>
