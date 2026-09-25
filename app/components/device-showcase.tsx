@@ -36,27 +36,27 @@ const desktopViews: DesktopViewOption[] = [
   {
     id: "dashboard",
     title: "Sermon Library & Overview",
-    subtitle: "Real-time look at your sermon archive, spiritual metrics, and distraction-free workspace.",
+    subtitle: "Complete bird's-eye view of your sermon series, monthly calendar, and spiritual metrics.",
     image: "/images/desktop-dashboard.png",
-    badge: "Live App Production UI",
+    badge: "Dashboard Studio",
     hotspots: [
       {
-        title: "Devotion Metrics Grid",
-        description: "4-card devotion statistics: Total Sermons, Completed Studies, Keepers, and Most Recent Note.",
-        x: 23,
-        y: 46
+        title: "Total Sermons & Progress",
+        description: "Track library growth with monthly note counts and completion metrics.",
+        x: 32,
+        y: 80
       },
       {
-        title: "+ New Sermon Action",
-        description: "Draft a new sermon note instantly with local-first auto-save and distraction-free writing.",
-        x: 90,
-        y: 30
+        title: "Global ⌘K Command Palette",
+        description: "Instant universal search for past notes, scriptures, and sermon topics.",
+        x: 48,
+        y: 8
       },
       {
-        title: "Global ⌘K Universal Search",
-        description: "Search across all past sermons, scripture passages, and key biblical insights in milliseconds.",
-        x: 55,
-        y: 6
+        title: "Daily Verse & Calendar",
+        description: "Daily inspirational scripture and calendar heat-dots for Sunday services.",
+        x: 88,
+        y: 35
       }
     ]
   },
@@ -314,7 +314,7 @@ export function DeviceShowcase() {
                 </div>
 
                 {/* Main Desktop Screenshot Area with Direct Live App Launch & Interactive Hotspots */}
-                <div className="relative aspect-[16/9.1] w-full overflow-hidden bg-[#0b0d11] group">
+                <div className="relative aspect-[16/7.5] sm:aspect-[16/7.4] w-full overflow-hidden bg-[#0b0d11] group">
                   {/* Click to open web app link overlay */}
                   <a
                     href={APP_URL}
