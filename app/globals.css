@@ -121,21 +121,24 @@ body {
 }
 
 /* ---- Infinite Marquee Animations ---- */
-@keyframes marqueeLeft {
+@keyframes marqueeScroll {
   0% {
-    transform: translateX(0%);
+    transform: translateX(0);
   }
   100% {
     transform: translateX(-50%);
   }
 }
 
+.marquee-track,
 .animate-marquee-infinite {
   display: flex;
-  width: 200%;
-  animation: marqueeLeft 30s linear infinite;
+  width: max-content;
+  animation: marqueeScroll 35s linear infinite;
+  will-change: transform;
 }
 
+.marquee-track:hover,
 .animate-marquee-infinite:hover {
   animation-play-state: paused;
 }

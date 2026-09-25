@@ -14,28 +14,35 @@ export function MarqueeTicker() {
   ];
 
   return (
-    <div className="w-full overflow-hidden bg-[#111419] border-y border-white/[0.08] py-4 relative">
+    <div className="w-full overflow-hidden bg-[#111419] border-y border-white/[0.08] py-4 relative select-none">
       {/* Left/Right Fading Vignettes */}
-      <div className="absolute left-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-r from-[var(--bg-deep)] to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-l from-[var(--bg-deep)] to-transparent z-10 pointer-events-none" />
+      <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-36 bg-gradient-to-r from-[var(--bg-deep)] to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-36 bg-gradient-to-l from-[var(--bg-deep)] to-transparent z-10 pointer-events-none" />
 
-      <div className="animate-marquee-infinite">
+      {/* Continuously Scrolling Track */}
+      <div className="flex w-max marquee-track">
         {/* Set 1 */}
-        <div className="flex w-1/2 justify-around items-center gap-10 px-6">
+        <div className="flex shrink-0 items-center gap-12 sm:gap-16 pr-12 sm:pr-16">
           {items.map((item, idx) => (
-            <div key={`set1-${idx}`} className="flex items-center gap-2.5 whitespace-nowrap text-sm font-medium text-[var(--text-secondary)]">
-              {item.icon}
-              <span className="text-white/80">{item.text}</span>
+            <div
+              key={`set1-${idx}`}
+              className="flex items-center gap-3 shrink-0 whitespace-nowrap text-xs sm:text-sm font-medium text-[var(--text-secondary)]"
+            >
+              <span className="shrink-0">{item.icon}</span>
+              <span className="text-white/85 tracking-wide">{item.text}</span>
             </div>
           ))}
         </div>
 
-        {/* Set 2 (for seamless loop) */}
-        <div className="flex w-1/2 justify-around items-center gap-10 px-6">
+        {/* Set 2 (Identical Track for Seamless Infinite Loop) */}
+        <div aria-hidden="true" className="flex shrink-0 items-center gap-12 sm:gap-16 pr-12 sm:pr-16">
           {items.map((item, idx) => (
-            <div key={`set2-${idx}`} className="flex items-center gap-2.5 whitespace-nowrap text-sm font-medium text-[var(--text-secondary)]">
-              {item.icon}
-              <span className="text-white/80">{item.text}</span>
+            <div
+              key={`set2-${idx}`}
+              className="flex items-center gap-3 shrink-0 whitespace-nowrap text-xs sm:text-sm font-medium text-[var(--text-secondary)]"
+            >
+              <span className="shrink-0">{item.icon}</span>
+              <span className="text-white/85 tracking-wide">{item.text}</span>
             </div>
           ))}
         </div>
