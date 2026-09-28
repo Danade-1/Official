@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# ignore binaries
+public/downloads/*.exe
+public/downloads/*.apk
+public/downloads/*.zip

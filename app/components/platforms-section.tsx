@@ -50,7 +50,7 @@ export function PlatformsSection({ onOpenDownload }: PlatformsSectionProps) {
       primaryAction: (
         <div className="flex flex-col gap-2 w-full">
           <a
-            href="/downloads/vessel-setup.exe"
+            href="https://github.com/Danade-1/Sermon-note-manager/releases/download/v1.0.0/vessel-setup.exe"
             download="vessel-setup.exe"
             className="w-full py-3 rounded-xl font-semibold text-xs text-white bg-purple-600 hover:bg-purple-500 border border-purple-400/30 transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(168,85,247,0.3)]"
           >
@@ -81,7 +81,7 @@ export function PlatformsSection({ onOpenDownload }: PlatformsSectionProps) {
       primaryAction: (
         <div className="flex flex-col gap-2 w-full">
           <a
-            href="/downloads/vessel.apk"
+            href="https://github.com/Danade-1/Sermon-note-manager/releases/download/v1.0.0/vessel.apk"
             download="vessel.apk"
             className="w-full py-3 rounded-xl font-semibold text-xs text-white bg-orange-600 hover:bg-orange-500 border border-orange-400/30 transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(249,115,22,0.3)]"
           >
