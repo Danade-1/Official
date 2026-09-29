@@ -86,7 +86,7 @@ export function Hero({ currentTheme, onThemeChange, onOpenDownload }: HeroProps)
           className="text-4xl sm:text-6xl md:text-7xl lg:text-[76px] font-serif font-bold tracking-tight text-white leading-[1.12] mb-7"
         >
           A quiet space for your <br className="hidden sm:inline" />
-          <span className="relative inline-block min-w-[280px] sm:min-w-[440px] text-left">
+          <span className="relative inline-block min-w-[280px] sm:min-w-[440px] text-center">
             <AnimatePresence mode="wait">
               <motion.span
                 key={wordIndex}

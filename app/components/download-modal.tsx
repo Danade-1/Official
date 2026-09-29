@@ -104,7 +104,7 @@ export function DownloadModal({ isOpen, onClose, defaultPlatform }: DownloadModa
                 </div>
                 <div className="mt-3 pt-3 border-t border-white/[0.05] flex flex-wrap items-center justify-between gap-2">
                   <a
-                    href="https://github.com/Danade-1/Sermon-note-manager/releases/download/v1.0.0/vessel-setup.exe"
+                    href="https://github.com/Danade-1/Official/releases/download/v1.0.0/vessel-setup.exe"
                     download="vessel-setup.exe"
                     className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-white bg-purple-600 hover:bg-purple-500 transition-all shadow-[0_0_12px_rgba(168,85,247,0.3)]"
                   >
@@ -144,7 +144,7 @@ export function DownloadModal({ isOpen, onClose, defaultPlatform }: DownloadModa
                 </div>
                 <div className="mt-3 pt-3 border-t border-white/[0.05] flex flex-wrap items-center justify-between gap-2">
                   <a
-                    href="https://github.com/Danade-1/Sermon-note-manager/releases/download/v1.0.0/vessel.apk"
+                    href="https://github.com/Danade-1/Official/releases/download/v1.0.0/vessel.apk"
                     download="vessel.apk"
                     className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-white bg-orange-600 hover:bg-orange-500 transition-all shadow-[0_0_12px_rgba(249,115,22,0.3)]"
                   >
