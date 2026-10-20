@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, BookOpen, Monitor, Smartphone, Palette, ArrowRight, ShieldCheck, ExternalLink } from "lucide-react";
+import { Sparkles, BookOpen, Monitor, Smartphone, Palette, ArrowRight, ShieldCheck, ExternalLink, Download } from "lucide-react";
 import { APP_URL } from "../constants";
 
 const rotatingWords = [
@@ -113,52 +113,41 @@ export function Hero({ currentTheme, onThemeChange, onOpenDownload }: HeroProps)
           Vessel is a distraction-free, local-first sanctuary for sermon notes, Bible study, and devotion. Instant scripture insertion, AI auto-tagging, and zero subscription barriers.
         </motion.p>
 
-        {/* Action Button Suite */}
+        {/* Unified Single Action Button */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
           className="flex flex-col items-center max-w-xl mx-auto mb-14"
         >
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full">
-            <a
-              href={APP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-shimmer w-full sm:w-auto flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl font-semibold text-base text-black bg-[var(--accent-primary)] hover:brightness-110 transition-all shadow-[0_0_35px_var(--accent-primary-glow)] hover:scale-[1.02] active:scale-[0.98]"
-              style={{ color: "#000000" }}
-            >
-              <BookOpen size={19} />
-              <span>Launch Live Web App</span>
-              <ExternalLink size={15} />
-            </a>
-
-            <button
-              onClick={() => onOpenDownload?.("windows")}
-              className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl font-medium text-sm text-white bg-white/[0.05] hover:bg-white/[0.09] border border-white/10 hover:border-white/20 transition-all"
-            >
-              <Monitor size={17} className="text-white/70" />
-              <span>Windows (.exe)</span>
-            </button>
-
-            <button
-              onClick={() => onOpenDownload?.("android")}
-              className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl font-medium text-sm text-white bg-white/[0.05] hover:bg-white/[0.09] border border-white/10 hover:border-white/20 transition-all"
-            >
-              <Smartphone size={17} className="text-white/70" />
-              <span>Android (.apk)</span>
-            </button>
-          </div>
-
-          <a
-            href={APP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 mt-3.5 text-xs text-[var(--accent-primary)] hover:underline opacity-90 hover:opacity-100 transition-opacity"
+          <button
+            id="primary-download-cta"
+            onClick={() => onOpenDownload?.()}
+            className="btn-shimmer group relative flex items-center justify-center gap-3 px-8 py-4 sm:px-10 sm:py-4.5 rounded-2xl font-bold text-base sm:text-lg text-black bg-[var(--accent-primary)] hover:brightness-110 transition-all duration-300 shadow-[0_0_40px_var(--accent-primary-glow)] hover:shadow-[0_0_55px_var(--accent-primary-glow)] hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
+            style={{ color: "#000000" }}
           >
-            <Sparkles size={12} />
-            <span>Opens your real, live sermon workspace directly in your browser — zero installation</span>
-          </a>
+            <div className="w-7 h-7 rounded-lg bg-black/15 flex items-center justify-center">
+              <Download size={18} className="text-black group-hover:translate-y-0.5 transition-transform" />
+            </div>
+            <span className="tracking-tight">Get Vessel — Free</span>
+            <div className="hidden sm:flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-black/15 text-black">
+              <span>Web</span>
+              <span>•</span>
+              <span>Windows</span>
+              <span>•</span>
+              <span>Android</span>
+            </div>
+            <ArrowRight size={18} className="text-black group-hover:translate-x-1 transition-transform" />
+          </button>
+
+          <div className="flex flex-wrap items-center justify-center gap-y-2 gap-x-4 mt-4 text-xs text-[var(--text-secondary)]">
+            <span className="flex items-center gap-1.5">
+              <Sparkles size={13} className="text-[var(--accent-primary)]" />
+              <span>Instant Web Launch • Windows (.exe) • Android (.apk)</span>
+            </span>
+            <span className="text-white/20 hidden sm:inline">•</span>
+            <span className="text-[var(--text-muted)]">Zero Installation or Native Builds</span>
+          </div>
         </motion.div>
 
         {/* Live Interactive Accent Theme Switcher Bar */}

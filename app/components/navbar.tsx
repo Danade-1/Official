@@ -1,16 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Feather, Menu, X, ExternalLink, Sparkles } from "lucide-react";
+import { Feather, Menu, X, ExternalLink, Sparkles, Download } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { APP_URL } from "../constants";
 
 interface NavbarProps {
-  onOpenDownload?: () => void;
+  onRedirectToDownload?: () => void;
 }
 
-export function Navbar({ onOpenDownload }: NavbarProps) {
+export function Navbar({ onRedirectToDownload }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -33,7 +33,7 @@ export function Navbar({ onOpenDownload }: NavbarProps) {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[rgba(11,13,16,0.85)] backdrop-blur-md border-b border-[rgba(255,255,255,0.08)] py-3.5 shadow-lg shadow-black/30"
+          ? "bg-[rgba(9,11,14,0.85)] backdrop-blur-xl border-b border-white/[0.08] py-3.5 shadow-xl shadow-black/40"
           : "bg-transparent py-5 border-b border-transparent"
       }`}
     >
@@ -54,7 +54,7 @@ export function Navbar({ onOpenDownload }: NavbarProps) {
         </a>
 
         {/* Desktop Nav Links */}
-        <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-[var(--text-secondary)]">
+        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-[var(--text-secondary)]">
           {navLinks.map((link) => (
             <a
               key={link.label}
@@ -64,36 +64,18 @@ export function Navbar({ onOpenDownload }: NavbarProps) {
               {link.label}
             </a>
           ))}
-          <a
-            href={APP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-[var(--accent-primary)] hover:text-white font-semibold transition-colors duration-200"
-          >
-            <span>Test Web App</span>
-            <ExternalLink size={13} />
-          </a>
         </nav>
 
-        {/* Right CTA Actions */}
+        {/* Right CTA - Single Unified Download/Launch Button */}
         <div className="hidden sm:flex items-center gap-3">
           <button
-            onClick={onOpenDownload}
-            className="px-4 py-2 rounded-full text-xs font-semibold text-[var(--text-secondary)] hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 transition-all"
-          >
-            Downloads
-          </button>
-
-          <a
-            href={APP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-shimmer flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold text-black bg-[var(--accent-primary)] hover:brightness-110 transition-all shadow-[0_0_20px_var(--accent-primary-glow)] hover:scale-105 active:scale-95"
+            onClick={onRedirectToDownload}
+            className="btn-shimmer flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-black bg-[var(--accent-primary)] hover:brightness-110 transition-all shadow-[0_0_20px_var(--accent-primary-glow)] hover:scale-105 active:scale-95 cursor-pointer"
             style={{ color: "#000000" }}
           >
-            <span>Launch App</span>
-            <ExternalLink size={13} />
-          </a>
+            <Download size={14} />
+            <span>Get Vessel</span>
+          </button>
         </div>
 
         {/* Mobile Hamburger Toggle */}
@@ -132,21 +114,14 @@ export function Navbar({ onOpenDownload }: NavbarProps) {
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);
-                    onOpenDownload?.();
+                    onRedirectToDownload?.();
                   }}
-                  className="w-full py-3 rounded-xl text-center text-sm font-semibold text-white bg-white/5 border border-white/10"
-                >
-                  Download Options (Windows & Android)
-                </button>
-                <a
-                  href={APP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-3 rounded-xl text-center text-sm font-semibold text-black bg-[var(--accent-primary)] shadow-[0_0_20px_var(--accent-primary-glow)]"
+                  className="w-full py-3.5 rounded-xl text-center text-sm font-bold text-black bg-[var(--accent-primary)] shadow-[0_0_20px_var(--accent-primary-glow)] flex items-center justify-center gap-2 cursor-pointer"
                   style={{ color: "#000000" }}
                 >
-                  Launch Vessel Web App
-                </a>
+                  <Download size={16} />
+                  <span>Get Vessel — Web, Windows & Android</span>
+                </button>
               </div>
             </div>
           </motion.div>

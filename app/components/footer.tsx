@@ -1,9 +1,13 @@
 "use client";
 
-import { Feather, BookOpen, ExternalLink, Heart } from "lucide-react";
+import { Feather, BookOpen, ExternalLink, Heart, Download, ArrowRight } from "lucide-react";
 import { APP_URL } from "../constants";
 
-export function Footer() {
+interface FooterProps {
+  onRedirectToDownload?: () => void;
+}
+
+export function Footer({ onRedirectToDownload }: FooterProps) {
   return (
     <footer className="relative bg-[#080a0d] border-t border-white/[0.08] overflow-hidden">
       
@@ -27,17 +31,15 @@ export function Footer() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5">
-              <a
-                href={APP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-shimmer w-full sm:w-auto flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl font-semibold text-base text-black bg-[var(--accent-primary)] hover:brightness-110 transition-all shadow-[0_0_35px_var(--accent-primary-glow)] hover:scale-[1.02] active:scale-[0.98]"
+              <button
+                onClick={onRedirectToDownload}
+                className="btn-shimmer w-full sm:w-auto flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl font-bold text-base text-black bg-[var(--accent-primary)] hover:brightness-110 transition-all shadow-[0_0_35px_var(--accent-primary-glow)] hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
                 style={{ color: "#000000" }}
               >
-                <BookOpen size={18} />
-                <span>Launch Vessel Real Web App — Free</span>
-                <ExternalLink size={16} />
-              </a>
+                <Download size={18} />
+                <span>Get Vessel — Web, Windows & Android</span>
+                <ArrowRight size={16} />
+              </button>
             </div>
           </div>
         </div>
@@ -59,15 +61,13 @@ export function Footer() {
         {/* Navigation Quick Links */}
         <div className="flex items-center gap-6 font-medium text-white/60">
           <a href="#features" className="hover:text-white transition-colors">Features</a>
-          <a
-            href={APP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-white transition-colors text-[var(--accent-primary)] font-semibold flex items-center gap-1"
+          <button
+            onClick={onRedirectToDownload}
+            className="hover:text-white transition-colors text-[var(--accent-primary)] font-semibold flex items-center gap-1 cursor-pointer bg-transparent border-none p-0"
           >
-            <span>Live Web App</span>
-            <ExternalLink size={11} />
-          </a>
+            <span>Get Vessel</span>
+            <Download size={11} />
+          </button>
           <a href="#scripture" className="hover:text-white transition-colors">Scripture Tool</a>
           <a href="#platforms" className="hover:text-white transition-colors">Platforms</a>
           <a href="#faq" className="hover:text-white transition-colors">FAQ</a>

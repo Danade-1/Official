@@ -32,6 +32,25 @@ export default function LandingPage() {
     setDownloadModalOpen(true);
   };
 
+  const scrollToPrimaryDownload = (platform?: "windows" | "android") => {
+    if (platform) {
+      setDownloadPlatform(platform);
+    }
+    const ctaBtn = document.getElementById("primary-download-cta");
+    if (ctaBtn) {
+      ctaBtn.scrollIntoView({ behavior: "smooth", block: "center" });
+      ctaBtn.classList.remove("cta-highlight-active");
+      // Force DOM reflow to retrigger animation reliably
+      void ctaBtn.offsetWidth;
+      ctaBtn.classList.add("cta-highlight-active");
+      setTimeout(() => {
+        setDownloadModalOpen(true);
+      }, 650);
+    } else {
+      setDownloadModalOpen(true);
+    }
+  };
+
   // Set default theme on mount
   useEffect(() => {
     if (typeof document !== "undefined") {
@@ -46,7 +65,7 @@ export default function LandingPage() {
       <div className="fixed inset-0 bg-dot-grid pointer-events-none opacity-40 z-0" />
 
       {/* Main Top Navigation */}
-      <Navbar onOpenDownload={() => handleOpenDownload()} />
+      <Navbar onRedirectToDownload={() => scrollToPrimaryDownload()} />
 
       {/* Main Content Sections */}
       <main className="flex-1 relative z-10">
@@ -73,34 +92,24 @@ export default function LandingPage() {
         <ScriptureDemo />
 
         {/* 7. Multi-Platform Availability (Web, Windows, Android) */}
-        <PlatformsSection onOpenDownload={handleOpenDownload} />
+        <PlatformsSection onRedirectToDownload={scrollToPrimaryDownload} />
 
         {/* 8. Frequently Asked Questions Accordion */}
         <FAQAccordion />
       </main>
 
       {/* Footer with Pre-footer CTA */}
-      <Footer />
+      <Footer onRedirectToDownload={() => scrollToPrimaryDownload()} />
 
-      {/* Mobile Sticky Quick Action Dock (Visible only on small screens) */}
-      <div className="fixed bottom-4 inset-x-4 z-40 md:hidden flex items-center justify-between gap-2.5 p-2 rounded-2xl bg-[#14171d]/90 border border-white/15 backdrop-blur-xl shadow-2xl">
-        <a
-          href={APP_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-[var(--accent-primary)] text-black text-xs font-bold shadow-lg"
+      {/* Mobile Sticky Quick Action Dock (Single Action Button) */}
+      <div className="fixed bottom-4 inset-x-4 z-40 md:hidden p-1.5 rounded-2xl bg-[#101318]/90 border border-white/15 backdrop-blur-xl shadow-2xl">
+        <button
+          onClick={() => scrollToPrimaryDownload()}
+          className="btn-shimmer w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[var(--accent-primary)] text-black text-xs font-bold shadow-lg cursor-pointer"
           style={{ color: "#000000" }}
         >
-          <BookOpen size={14} />
-          <span>Launch Web App</span>
-        </a>
-
-        <button
-          onClick={() => handleOpenDownload()}
-          className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold border border-white/10 transition-colors"
-        >
-          <Download size={14} />
-          <span>Download</span>
+          <Download size={15} />
+          <span>Get Vessel — Web, Windows & Android</span>
         </button>
       </div>
 

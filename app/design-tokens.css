@@ -8,50 +8,51 @@
   color-scheme: dark;
 
   /* ---- Background Layers ---- */
-  --bg-deep: #0b0d10;
-  --bg-surface: #13161b;
-  --bg-elevated: #1a1e26;
-  --bg-card: rgba(22, 26, 33, 0.75);
-  --bg-glass: rgba(25, 30, 40, 0.55);
-  --bg-glass-strong: rgba(20, 24, 32, 0.85);
+  --bg-deep: #090b0e;
+  --bg-surface: #101318;
+  --bg-elevated: #161a22;
+  --bg-card: rgba(18, 22, 29, 0.72);
+  --bg-glass: rgba(22, 27, 36, 0.6);
+  --bg-glass-strong: rgba(16, 20, 27, 0.88);
 
   /* ---- Text ---- */
-  --text-primary: #f1f3f6;
-  --text-secondary: #9aa1ad;
-  --text-muted: #5e6674;
-  --text-inverse: #0b0d10;
+  --text-primary: #f3f5f8;
+  --text-secondary: #9da5b3;
+  --text-muted: #616a79;
+  --text-inverse: #090b0e;
 
   /* ---- Borders & Lines ---- */
   --border: rgba(255, 255, 255, 0.08);
-  --border-hover: rgba(255, 255, 255, 0.16);
-  --border-focus: rgba(110, 231, 183, 0.4);
+  --border-hover: rgba(255, 255, 255, 0.18);
+  --border-focus: rgba(110, 231, 183, 0.45);
+  --border-subtle: rgba(255, 255, 255, 0.04);
 
   /* ---- Active Primary Accent (Sage by default) ---- */
   --accent-primary: #6ee7b7;
-  --accent-primary-dim: rgba(110, 231, 183, 0.14);
-  --accent-primary-glow: rgba(110, 231, 183, 0.3);
-  --accent-primary-border: rgba(110, 231, 183, 0.28);
+  --accent-primary-dim: rgba(110, 231, 183, 0.12);
+  --accent-primary-glow: rgba(110, 231, 183, 0.32);
+  --accent-primary-border: rgba(110, 231, 183, 0.3);
 
   /* ---- Static Accent Palette ---- */
   --accent-sage: #6ee7b7;
-  --accent-sage-dim: rgba(110, 231, 183, 0.14);
-  --accent-sage-glow: rgba(110, 231, 183, 0.3);
+  --accent-sage-dim: rgba(110, 231, 183, 0.12);
+  --accent-sage-glow: rgba(110, 231, 183, 0.32);
 
   --accent-lavender: #a78bfa;
-  --accent-lavender-dim: rgba(167, 139, 250, 0.14);
-  --accent-lavender-glow: rgba(167, 139, 250, 0.3);
+  --accent-lavender-dim: rgba(167, 139, 250, 0.12);
+  --accent-lavender-glow: rgba(167, 139, 250, 0.32);
 
   --accent-coral: #fb923c;
-  --accent-coral-dim: rgba(251, 146, 60, 0.14);
-  --accent-coral-glow: rgba(251, 146, 60, 0.3);
+  --accent-coral-dim: rgba(251, 146, 60, 0.12);
+  --accent-coral-glow: rgba(251, 146, 60, 0.32);
 
   --accent-amber: #fbbf24;
-  --accent-amber-dim: rgba(251, 191, 36, 0.14);
-  --accent-amber-glow: rgba(251, 191, 36, 0.3);
+  --accent-amber-dim: rgba(251, 191, 36, 0.12);
+  --accent-amber-glow: rgba(251, 191, 36, 0.32);
 
   --accent-rose: #fb7185;
-  --accent-rose-dim: rgba(251, 113, 133, 0.14);
-  --accent-rose-glow: rgba(251, 113, 133, 0.3);
+  --accent-rose-dim: rgba(251, 113, 133, 0.12);
+  --accent-rose-glow: rgba(251, 113, 133, 0.32);
 
   /* ---- Status Colors ---- */
   --status-complete: #34d399;
@@ -65,10 +66,10 @@
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
   /* ---- Shadows & Glows ---- */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.55);
-  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.6);
+  --shadow-card: 0 12px 32px -8px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
   /* ---- Transitions ---- */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);

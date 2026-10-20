@@ -5,13 +5,13 @@ import { Globe, Monitor, Smartphone, Check, ArrowRight, Download, ExternalLink }
 import { APP_URL } from "../constants";
 
 interface PlatformsSectionProps {
-  onOpenDownload?: (platform?: "windows" | "android") => void;
+  onRedirectToDownload?: (platform?: "windows" | "android") => void;
 }
 
-export function PlatformsSection({ onOpenDownload }: PlatformsSectionProps) {
+export function PlatformsSection({ onRedirectToDownload }: PlatformsSectionProps) {
   const platforms = [
     {
-      id: "web",
+      id: "web" as const,
       name: "Web Application",
       badge: "Instant Access",
       description: "Access your spiritual sanctuary from any computer or tablet browser with zero install required. PWA installable.",
@@ -22,21 +22,11 @@ export function PlatformsSection({ onOpenDownload }: PlatformsSectionProps) {
         "Seamless offline service worker caching",
         "Automatic cloud sync with Google Sign-In"
       ],
-      primaryAction: (
-        <a
-          href={APP_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-shimmer w-full py-3.5 rounded-xl font-bold text-xs text-black bg-[var(--accent-primary)] hover:brightness-110 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_var(--accent-primary-glow)] hover:scale-[1.02] active:scale-[0.98]"
-          style={{ color: "#000000" }}
-        >
-          <span>Launch Real Web App (Direct)</span>
-          <ExternalLink size={14} />
-        </a>
-      )
+      actionLabel: "Launch Web Sanctuary",
+      buttonClass: "bg-[var(--accent-primary-dim)] hover:bg-[var(--accent-primary)] text-[var(--accent-primary)] hover:text-black border border-[var(--accent-primary-border)]"
     },
     {
-      id: "windows",
+      id: "windows" as const,
       name: "Windows Desktop",
       badge: ".EXE Installer",
       description: "Dedicated sanctuary application for deep sermon preparation, pastoral writing, and long-form study.",
@@ -47,27 +37,11 @@ export function PlatformsSection({ onOpenDownload }: PlatformsSectionProps) {
         "Distraction-free fullscreen sanctuary",
         "Automatic background cloud sync"
       ],
-      primaryAction: (
-        <div className="flex flex-col gap-2 w-full">
-          <a
-            href="https://github.com/Danade-1/Official/releases/download/v1.0.0/vessel-setup.exe"
-            download="vessel-setup.exe"
-            className="w-full py-3 rounded-xl font-semibold text-xs text-white bg-purple-600 hover:bg-purple-500 border border-purple-400/30 transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(168,85,247,0.3)]"
-          >
-            <Download size={14} />
-            <span>Download Windows (.exe)</span>
-          </a>
-          <button
-            onClick={() => onOpenDownload?.("windows")}
-            className="text-[11px] text-white/50 hover:text-white/80 py-1 transition-colors"
-          >
-            View Installation Instructions
-          </button>
-        </div>
-      )
+      actionLabel: "Get Windows (.exe)",
+      buttonClass: "bg-[var(--accent-lavender-dim)] hover:bg-[var(--accent-lavender)] text-[var(--accent-lavender)] hover:text-black border border-purple-500/30"
     },
     {
-      id: "android",
+      id: "android" as const,
       name: "Android Mobile",
       badge: ".APK Package",
       description: "Your pocket devotion companion. Take notes on the go, record sermons with hands-free voice dictation, and browse scripture.",
@@ -78,24 +52,8 @@ export function PlatformsSection({ onOpenDownload }: PlatformsSectionProps) {
         "Horizontal scrolling stats carousel",
         "Instant offline access in church sanctuary"
       ],
-      primaryAction: (
-        <div className="flex flex-col gap-2 w-full">
-          <a
-            href="https://github.com/Danade-1/Official/releases/download/v1.0.0/vessel.apk"
-            download="vessel.apk"
-            className="w-full py-3 rounded-xl font-semibold text-xs text-white bg-orange-600 hover:bg-orange-500 border border-orange-400/30 transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(249,115,22,0.3)]"
-          >
-            <Download size={14} />
-            <span>Download Android (.apk)</span>
-          </a>
-          <button
-            onClick={() => onOpenDownload?.("android")}
-            className="text-[11px] text-white/50 hover:text-white/80 py-1 transition-colors"
-          >
-            View Mobile Setup Guide
-          </button>
-        </div>
-      )
+      actionLabel: "Get Android (.apk)",
+      buttonClass: "bg-[var(--accent-coral-dim)] hover:bg-[var(--accent-coral)] text-[var(--accent-coral)] hover:text-black border border-orange-500/30"
     }
   ];
 
@@ -159,7 +117,14 @@ export function PlatformsSection({ onOpenDownload }: PlatformsSectionProps) {
               </div>
 
               <div className="pt-4 border-t border-white/[0.05]">
-                {p.primaryAction}
+                <button
+                  onClick={() => onRedirectToDownload?.(p.id === "web" ? undefined : p.id)}
+                  className={`w-full py-3.5 rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md hover:scale-[1.02] active:scale-[0.98] ${p.buttonClass}`}
+                >
+                  <Download size={14} />
+                  <span>{p.actionLabel}</span>
+                  <ArrowRight size={13} className="opacity-70" />
+                </button>
               </div>
             </motion.div>
           ))}
