@@ -83,23 +83,22 @@ export function Hero({ currentTheme, onThemeChange, onOpenDownload }: HeroProps)
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="text-4xl sm:text-6xl md:text-7xl lg:text-[76px] font-serif font-bold tracking-tight text-white leading-[1.12] mb-7"
+          className="text-4xl sm:text-6xl md:text-7xl lg:text-[76px] font-serif font-bold tracking-tight text-white leading-[1.15] mb-7 text-center"
         >
-          A quiet space for your <br className="hidden sm:inline" />
-          <span className="relative inline-block min-w-[280px] sm:min-w-[440px] text-center">
+          <span className="block">A quiet space for your</span>
+          <span className="relative block h-[1.2em] w-full text-center overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.span
                 key={wordIndex}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -24 }}
+                exit={{ opacity: 0, y: -28 }}
                 transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute inset-0 whitespace-nowrap bg-gradient-to-r from-white via-[var(--accent-primary)] to-white bg-clip-text text-transparent"
+                className="absolute inset-0 flex items-center justify-center text-center whitespace-nowrap bg-gradient-to-r from-white via-[var(--accent-primary)] to-white bg-clip-text text-transparent"
               >
                 {rotatingWords[wordIndex]}
               </motion.span>
             </AnimatePresence>
-            <span className="opacity-0 pointer-events-none">spiritual reflections</span>
           </span>
         </motion.h1>
 
