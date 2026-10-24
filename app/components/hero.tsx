@@ -86,7 +86,7 @@ export function Hero({ currentTheme, onThemeChange, onOpenDownload }: HeroProps)
           className="text-4xl sm:text-6xl md:text-7xl lg:text-[76px] font-serif font-bold tracking-tight text-white leading-[1.15] mb-7 text-center"
         >
           <span className="block">A quiet space for your</span>
-          <span className="relative block h-[1.2em] w-full text-center overflow-hidden">
+          <span className="relative block h-[1.2em] w-full overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.span
                 key={wordIndex}
@@ -94,7 +94,8 @@ export function Hero({ currentTheme, onThemeChange, onOpenDownload }: HeroProps)
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -28 }}
                 transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute inset-0 flex items-center justify-center text-center whitespace-nowrap bg-gradient-to-r from-white via-[var(--accent-primary)] to-white bg-clip-text text-transparent"
+                style={{ display: "block", textAlign: "center", width: "100%" }}
+                className="absolute inset-0 whitespace-nowrap bg-gradient-to-r from-white via-[var(--accent-primary)] to-white bg-clip-text text-transparent leading-[1.2em]"
               >
                 {rotatingWords[wordIndex]}
               </motion.span>
